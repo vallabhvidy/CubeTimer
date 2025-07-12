@@ -2,96 +2,102 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Francehelder Santos <francehelder@gmail.com>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: cube-timer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-11 16:03+0530\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2025-07-11 13:21-0300\n"
+"Last-Translator: Francehelder Santos <francehelder@gmail.com>\n"
+"Language-Team: Portuguese\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 48.0\n"
 
 #: data/io.github.vallabhvidy.CubeTimer.desktop.in:3
 #: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:6
 msgid "Cube Timer"
-msgstr ""
+msgstr "Cube Timer"
 
 #: data/io.github.vallabhvidy.CubeTimer.desktop.in:9
 msgid "solve;timer;rubiks;cube;"
-msgstr ""
+msgstr "solve;timer;rubiks;cube;"
 
 #: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:7
 msgid "3x3 Rubiks Cube timer"
-msgstr ""
+msgstr "Cronômetro de Cubo Mágico 3x3"
 
 #: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:9
 msgid ""
 "Cube Timer is a simple 3x3 Rubiks Cube Timer application for the gnome "
 "desktop. Just long press the space-bar and start solving!"
 msgstr ""
+"Cube Timer é um cronômetro simples para cubo mágico 3x3, feito para o Gnome. "
+"Pressione a barra de espaço e comece a resolver!"
 
 #: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:21
 msgid "Main window"
-msgstr ""
+msgstr "Janela principal"
 
 #: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:25
+#, fuzzy
 msgid "When the timer is running"
-msgstr ""
+msgstr "Quando o tempo está correndo"
 
 #: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:29
+#, fuzzy
 msgid "Mark a solve as DNF or delete it"
-msgstr ""
+msgstr "Marcar tempo como DNF ou apagá-lo"
 
 #: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:33
 msgid "Light Mode"
-msgstr ""
+msgstr "Modo Claro"
 
 #: src/gtk/help-overlay.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr ""
+msgstr "Geral"
 
 #: src/gtk/help-overlay.ui:14
 msgctxt "shortcut window"
 msgid "Start Timer"
-msgstr ""
+msgstr "Iniciar Cronômetro"
 
 #: src/gtk/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr ""
+msgstr "Mostrar Atalhos"
 
 #: src/gtk/help-overlay.ui:26
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr ""
+msgstr "Sair"
 
 #: src/score.py:232
 #, python-brace-format
 msgid "Delete {session}?"
-msgstr ""
+msgstr "Apagar {session}?"
 
 #: src/score.py:241
 msgid "Add"
-msgstr ""
+msgstr "Adicionar"
 
 #: src/score.py:243 src/score.py:248 src/score.py:254 src/score.py:386
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: src/score.py:247 src/score.py:385
 msgid "Delete"
-msgstr ""
+msgstr "Apagar"
 
 #: src/score.py:252
 msgid "Rename"
-msgstr ""
+msgstr "Renomear"
 
 #: src/score.py:314
 #, python-brace-format
@@ -100,52 +106,57 @@ msgid ""
 "\n"
 "Time:- {time}"
 msgstr ""
+"Embaralhamento:- {scramble}\n"
+"\n"
+"Tempo:- {time}"
 
 #: src/score.py:316
 #, python-brace-format
 msgid "Solve No. {idx}"
-msgstr ""
+msgstr "Tempo Nº {idx}"
 
 #: src/score.py:360
 msgid "Sr."
-msgstr ""
+msgstr "Nº"
 
 #: src/score.py:361
 msgid "Time"
-msgstr ""
+msgstr "Tempo"
 
 #: src/score.py:362
 msgid "ao5"
-msgstr ""
+msgstr "ao5"
 
 #: src/score.py:363
 msgid "ao12"
-msgstr ""
+msgstr "ao12"
 
 #: src/score.py:384
 msgid "Mark DNF"
-msgstr ""
+msgstr "Marcar como DNF"
 
 #: src/scramble.py:25
 msgid "Enter scramble length:- "
-msgstr ""
+msgstr "Tamanho do embaralhamento"
 
 #: src/gtk/window.ui:26
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: src/gtk/window.ui:51
+#, fuzzy
 msgid "Toggle Sidebar"
-msgstr ""
+msgstr "Barra Lateral"
 
 #: src/gtk/window.ui:99
+#, fuzzy
 msgid "View Scores File"
-msgstr ""
+msgstr "Ver arquivo de resoluções"
 
 #: src/gtk/window.ui:103
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Atalhos de Teclado"
 
 #: src/gtk/window.ui:107
 msgid "_About Cube Timer"
-msgstr ""
+msgstr "_Sobre o Cube Timer"
