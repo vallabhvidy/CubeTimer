@@ -1,4 +1,4 @@
-from random import randint
+import random
 from pathlib import Path
 import os
 
@@ -28,22 +28,83 @@ def time_string(time):
 
     return time_str
 
+def scramble_gen(scramble_length, dim="3x3x3"):
 
-moves = ['U', 'D', 'R', 'L', 'F', 'B']
-direction = ['', "'", "2"]
+    directions = ["", "'", "2"]
 
-def scramble_gen(scramble_length):
-    arr = [[0, 0] for _ in range(scramble_length)]
-    arr[0][0] = moves[randint(0, 5)]
-    arr[0][1] = direction[randint(0, 2)]
-    i = 1
-    while(i < scramble_length):
-        arr[i][0] = moves[randint(0, 5)]
-        arr[i][1] = direction[randint(0, 2)]
-        if arr[i-1][0] == arr[i][0]:
+    if dim == "3x3x3":
+        moves = [
+            ('U', 'U'),
+            ('R', 'R'),
+            ('L', 'L'),
+            ('F', 'F'),
+            ('D', 'D'),
+            ('B', 'B')
+        ]
+    elif dim == "2x2x2":
+        scramble_length /= 2
+        moves = [
+            ('U', 'U'),
+            ('R', 'R'),
+            ('L', 'L'),
+            ('F', 'F'),
+            ('D', 'D'),
+            ('B', 'B')
+        ]
+    elif dim == "4x4x4":
+        scramble_length *= 2
+        moves = [
+            ('U', 'U'), ('Uw', 'U'),
+            ('D', 'D'), ('Dw', 'D'),
+            ('R', 'R'), ('Rw', 'R'),
+            ('L', 'L'), ('Lw', 'L'),
+            ('F', 'F'), ('Fw', 'F'),
+            ('B', 'B'), ('Bw', 'B')
+        ]
+    elif dim == "5x5x5":
+        scramble_length *= 3
+        moves = [
+            ('U', 'U'), ('Uw', 'U'),
+            ('D', 'D'), ('Dw', 'D'),
+            ('R', 'R'), ('Rw', 'R'),
+            ('L', 'L'), ('Lw', 'L'),
+            ('F', 'F'), ('Fw', 'F'),
+            ('B', 'B'), ('Bw', 'B')
+        ]
+    elif dim == "6x6x6":
+        scramble_length *= 4
+        moves = [
+            ('U', 'U'), ('Uw', 'U'), ('3Uw', 'U'),
+            ('D', 'D'), ('Dw', 'D'), ('3Dw', 'D'),
+            ('R', 'R'), ('Rw', 'R'), ('3Rw', 'R'),
+            ('L', 'L'), ('Lw', 'L'), ('3Lw', 'L'),
+            ('F', 'F'), ('Fw', 'F'), ('3Fw', 'F'),
+            ('B', 'B'), ('Bw', 'B'), ('3Bw', 'B')
+        ]
+    elif dim == "7x7x7":
+        scramble_length *= 4.5
+        moves = [
+            ('U', 'U'), ('Uw', 'U'), ('3Uw', 'U'),
+            ('D', 'D'), ('Dw', 'D'), ('3Dw', 'D'),
+            ('R', 'R'), ('Rw', 'R'), ('3Rw', 'R'),
+            ('L', 'L'), ('Lw', 'L'), ('3Lw', 'L'),
+            ('F', 'F'), ('Fw', 'F'), ('3Fw', 'F'),
+            ('B', 'B'), ('Bw', 'B'), ('3Bw', 'B')
+        ]
+    else:
+        return "error"
+
+    scramble = []
+    prev = None
+    while len(scramble) < scramble_length:
+        move, face = random.choice(moves)
+        if face == prev:
             continue
-        i += 1
-    scramble = "  ".join([a[0]+a[1] for a in arr])
-    return scramble
+
+        direction = random.choice(directions)
+        scramble.append(move + direction)
+        prev = face
+
+    return "  ".join(scramble)
 
 

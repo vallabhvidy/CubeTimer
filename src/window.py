@@ -16,16 +16,25 @@ class CubeTimerWindow(Adw.ApplicationWindow):
     split_view = Gtk.Template.Child()
     show_sidebar_button = Gtk.Template.Child()
     scores_column_view = Gtk.Template.Child()
+    header_bar = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.cube_timer_label.grab_focus()
         self.header_bar_menu.set_can_focus(False)
         self.split_view.set_can_focus(False)
+        self.header_bar.set_show_title(True)
         evk = Gtk.EventControllerKey.new()
         evk.connect("key-pressed", self.cube_timer_label.timer.key_press)
         evk.connect("key-released", self.cube_timer_label.timer.key_released)
         self.add_controller(evk)
+        drop_down = self.header_bar.get_title_widget()
+        def on_dropdown_activate(dropdown, pspec):
+            selected = dropdown.props.selected_item.get_string()
+            self.scramble.update_scramble(selected)
+        drop_down.connect("notify::selected-item", on_dropdown_activate)
+
+        self.cube_timer_label.timer.drop_down = drop_down
         self.cube_timer_label.timer.scramble = self.scramble
         self.cube_timer_label.timer.split_view = self.split_view
         self.cube_timer_label.timer.update_scores = self.scores_column_view.add_score

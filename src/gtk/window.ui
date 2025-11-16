@@ -53,6 +53,22 @@
                         <!-- <property name="visible" bind-source="start_toggle" bind-property="active" bind-flags="sync-create"/> -->
                       </object>
                     </child>
+                    <child type="title">
+                      <object class="GtkDropDown">
+                        <property name="model">
+                          <object class="GtkStringList">
+                            <items>
+                              <item>3x3x3</item>
+                              <item>2x2x2</item>
+                              <item>4x4x4</item>
+                              <item>5x5x5</item>
+                              <item>6x6x6</item>
+                              <item>7x7x7</item>
+                            </items>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
                   </object>
                 </child>
                 <property name="content">

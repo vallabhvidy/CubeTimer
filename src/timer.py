@@ -16,6 +16,7 @@ class CubeTimer(GObject.Object):
         self.timer_running = False
         self.space_pressed = False
         self.space_released = True
+        self.drop_down = None
         self.update_label = update_label
         self.update_scores = None
         self.scramble = None
@@ -37,6 +38,7 @@ class CubeTimer(GObject.Object):
     def stop_timer(self):
         self.scramble.show_scramble()
         self.sidebar_button.set_visible(True)
+        self.drop_down.set_visible(True)
         self.timer_running = False
         self.split_view.set_show_sidebar(state)
         self.update_scores(self.time, self.scramble.scramble)
@@ -55,6 +57,7 @@ class CubeTimer(GObject.Object):
                     state = bool(self.split_view.get_show_sidebar())
                     self.split_view.set_show_sidebar(False)
                     self.scramble.hide_scramble()
+                    self.drop_down.set_visible(False)
                     self.sidebar_button.set_visible(False)
                     self.update_label("green")
                     self.get_set = True
