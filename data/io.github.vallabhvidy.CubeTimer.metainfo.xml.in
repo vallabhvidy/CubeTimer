@@ -36,8 +36,10 @@
   <releases>
     <release version="0.1.7" date="2025-11-16">
       <description translate="no">
-        <p>Add 2x2 to 7x7 scrambles</p>
-        <p>Update to GNOME 49 runtime</p>
+        <ul>
+          <li>Add 2x2 to 7x7 scrambles</li>
+          <li>Update to GNOME 49 runtime</li>
+        </ul>
       </description>
     </release>
     <release version="0.1.6" date="2025-07-16">
