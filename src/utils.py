@@ -101,7 +101,7 @@ def pyraminx_skewb_scramble(scramble_length, dim="Pyraminx"):
 
 def megaminx_scramble():
     directions_face = ("", "'")
-    directions_large = ("--", "++")
+    directions_large = ("--", "+\u2060+")
     moves_large = ("R", "D")
 
     scramble = []
