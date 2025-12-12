@@ -55,6 +55,7 @@
                     </child>
                     <child type="title">
                       <object class="GtkDropDown">
+                        <property name="tooltip-text" translatable="yes">Puzzle Type</property>
                         <property name="model">
                           <object class="GtkStringList">
                             <items>
