@@ -99,6 +99,24 @@ def pyraminx_skewb_scramble(scramble_length, dim="Pyraminx"):
 
     return "  ".join(scramble)
 
+def megaminx_scramble():
+    directions_face = ("", "'")
+    directions_large = ("--", "++")
+    moves_large = ("R", "D")
+
+    scramble = []
+    for n1 in range(7):
+        # Large moves
+        for n2 in range(10):
+            direction = random.choice(directions_large)
+            scramble.append(moves_large[n2 % 2] + direction)
+
+        # Face move
+        direction = random.choice(directions_face)
+        scramble.append("U" + direction)
+
+    return "  ".join(scramble)
+
 def scramble_gen(scramble_length, dim="3x3x3"):
     # NOTE: Assume a scramble length of 20, then scale
 
@@ -128,6 +146,8 @@ def scramble_gen(scramble_length, dim="3x3x3"):
         moves = _6_7_moves
     elif dim == "Pyraminx" or dim == "Skewb":
         return pyraminx_skewb_scramble(scramble_length, dim)
+    elif dim == "Megaminx":
+        return megaminx_scramble()
     elif dim != "3x3x3":
         return "error"
 

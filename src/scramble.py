@@ -22,6 +22,7 @@ class Scramble(Gtk.Label):
             "5x5x5": 28,
             "6x6x6": 24,
             "7x7x7": 22,
+            "Megaminx": 22,
             "Pyraminx": 40,
             "Skewb": 44
         }
