@@ -21,7 +21,9 @@ class Scramble(Gtk.Label):
             "4x4x4": 32,
             "5x5x5": 28,
             "6x6x6": 24,
-            "7x7x7": 22
+            "7x7x7": 22,
+            "Pyraminx": 40,
+            "Skewb": 44
         }
         self.scramble = scramble_gen(number, self.dim)
         self.set_markup(f"<span size='{font_size[self.dim] * 1024}'>{self.scramble}</span>")

@@ -1,6 +1,7 @@
 import random
 from pathlib import Path
 import os
+from math import ceil
 
 data_dir = Path(os.getenv('XDG_DATA_HOME', Path.home() / '.local/share')) / 'flatpak' / 'apps' / 'cube-timer' / 'CubeTimer'
 data_dir.mkdir(parents=True, exist_ok=True)
@@ -59,6 +60,45 @@ def get_nxn_face(move):
         if i in opposing_faces:
             return i
 
+def pyraminx_skewb_scramble(scramble_length, dim="Pyraminx"):
+    # NOTE: Assume a scramble length of 20, then scale
+
+    directions = ("", "'")
+    moves = ('U', 'R', 'L', 'B')
+    tip_moves = ('l', 'r', 'b', 'u')
+
+    scramble_length = ceil(scramble_length / 2)
+
+    scramble = []
+    previous = None
+    for n in range(scramble_length):
+        # Create a list of allowed moves
+        allowed = list(range(len(moves)))
+        if previous != None:
+            allowed.pop(previous)
+
+        # Get a random move from the above list
+        next_indice = random.choice(allowed)
+        move = moves[next_indice]
+
+        # Get a random direction
+        direction = random.choice(directions)
+
+        scramble.append(move + direction)
+
+        # Update the previous move
+        previous = next_indice
+
+    if dim == "Pyraminx":
+        for i in tip_moves:
+            tip_move = random.randint(1, 3)
+            if tip_move == 2:
+                scramble.append(i)
+            elif tip_move == 3:
+                scramble.append(i + "'")
+
+    return "  ".join(scramble)
+
 def scramble_gen(scramble_length, dim="3x3x3"):
     # NOTE: Assume a scramble length of 20, then scale
 
@@ -73,7 +113,7 @@ def scramble_gen(scramble_length, dim="3x3x3"):
         'B'
     )
     if dim == "2x2x2":
-        scramble_length /= 2
+        scramble_length = ceil(scramble_length / 2)
     elif dim == "4x4x4":
         scramble_length *= 2
         moves = _4_5_moves
@@ -86,6 +126,8 @@ def scramble_gen(scramble_length, dim="3x3x3"):
     elif dim == "7x7x7":
         scramble_length *= 5
         moves = _6_7_moves
+    elif dim == "Pyraminx" or dim == "Skewb":
+        return pyraminx_skewb_scramble(scramble_length, dim)
     elif dim != "3x3x3":
         return "error"
 
@@ -103,6 +145,7 @@ def scramble_gen(scramble_length, dim="3x3x3"):
 
         # Get a random direction
         direction = random.choice(directions)
+
         scramble.append(move + direction)
 
         # Check if the move will reset the previous move list
@@ -121,5 +164,3 @@ def scramble_gen(scramble_length, dim="3x3x3"):
             previous = [next_indice]
 
     return "  ".join(scramble)
-
-
