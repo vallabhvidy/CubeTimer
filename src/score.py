@@ -346,11 +346,21 @@ class ScoresColumnView(Gtk.Box):
 
         def f_bind3(fact, item):
             ao5 = time_string(self.model.calculate_average(self.current_session, item.get_item().index, 5))
-            item.get_child().set_label(ao5)
+            item_child = item.get_child()
+            item_child.set_label(ao5)
+            if ao5 == "-":
+                item_child.add_css_class("dim-label")
+            else:
+                item_child.remove_css_class("dim-label")
 
         def f_bind4(fact, item):
             ao12 = time_string(self.model.calculate_average(self.current_session, item.get_item().index, 12))
-            item.get_child().set_label(ao12)
+            item_child = item.get_child()
+            item_child.set_label(ao12)
+            if ao12 == "-":
+                item_child.add_css_class("dim-label")
+            else:
+                item_child.remove_css_class("dim-label")
 
         fact1.connect("bind", f_bind1)
         fact2.connect("bind", f_bind2)
@@ -448,14 +458,18 @@ class ScoresColumnView(Gtk.Box):
         scores = self.model.get_session(session)
         self.store.remove_all()
 
-        self.current_time.set_label("-")
-        self.current_mo3.set_label("-")
-        self.current_ao5.set_label("-")
-        self.current_ao12.set_label("-")
-        self.best_time.set_label("-")
-        self.best_mo3.set_label("-")
-        self.best_ao5.set_label("-")
-        self.best_ao12.set_label("-")
+        labels = (
+            self.current_time,
+            self.current_mo3,
+            self.current_ao5,
+            self.current_ao12,
+            self.best_time,
+            self.best_mo3,
+            self.best_ao5,
+            self.best_ao12
+        )
+        for i in labels:
+            i.set_label("-")
 
         self.min_time = -1
         self.min_mo3 = -1

@@ -16,6 +16,10 @@
     font-size: 12px;
     color: grey;
     padding: 6px;
-    border-radius: 6px;
+    border-radius: 10px;
     background-color: #222226;
+}
+
+.scores-column-view {
+    border-radius: 10px;
 }
