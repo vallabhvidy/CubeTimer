@@ -105,16 +105,50 @@ def megaminx_scramble():
     moves_large = ("R", "D")
 
     scramble = []
-    for n1 in range(7):
+    for i in range(7):
         # Large moves
-        for n2 in range(10):
+        for j in range(10):
             direction = random.choice(directions_large)
-            scramble.append(moves_large[n2 % 2] + direction)
+            scramble.append(moves_large[j % 2] + direction)
 
         # Face move
         direction = random.choice(directions_face)
         scramble.append("U" + direction)
 
+    return "  ".join(scramble)
+
+def clock_scramble():
+    moves_set1 = (
+        "UR",
+        "DR",
+        "DL",
+        "UL"
+    )
+    moves_set2 = (
+        "U",
+        "R",
+        "D",
+        "L",
+        "ALL"
+    )
+
+    def rotation_str(num):
+        string = str(abs(num))
+        if num >= 0:
+            return string + "+"
+        else:
+            return string + "-"
+
+    scramble = []
+    for i in moves_set1:
+        scramble.append(i + rotation_str(random.randint(-5, 6)))
+
+    for i in range(2):
+        for j in moves_set2:
+            scramble.append(j + rotation_str(random.randint(-5, 6)))
+        scramble.append("y2")
+
+    scramble.pop(-1)
     return "  ".join(scramble)
 
 def scramble_gen(scramble_length, dim="3x3x3"):
@@ -148,6 +182,8 @@ def scramble_gen(scramble_length, dim="3x3x3"):
         return pyraminx_skewb_scramble(scramble_length, dim)
     elif dim == "Megaminx":
         return megaminx_scramble()
+    elif dim == "Clock":
+        return clock_scramble()
     elif dim != "3x3x3":
         return "error"
 
