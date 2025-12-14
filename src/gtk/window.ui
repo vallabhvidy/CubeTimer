@@ -3,8 +3,33 @@
   <requires lib="gtk" version="4.0"/>
   <requires lib="Adw" version="1.0"/>
   <template class="CubeTimerWindow" parent="AdwApplicationWindow">
+    <property name="width-request">360</property>
+    <property name="height-request">600</property>
     <property name="default-width">800</property>
     <property name="default-height">800</property>
+    <child>
+      <object class="AdwBreakpoint" id="breakpoint_step1">
+        <condition>max-width: 900sp</condition>
+        <setter object="cube_timer_label" property="css-classes">numeric
+timer-medium</setter>
+      </object>
+    </child>
+    <child>
+      <object class="AdwBreakpoint" id="breakpoint_step2">
+        <condition>max-width: 700sp</condition>
+        <setter object="cube_timer_label" property="css-classes">numeric
+timer-medium</setter>
+        <setter object="split_view" property="collapsed">True</setter>
+      </object>
+    </child>
+    <child>
+      <object class="AdwBreakpoint" id="breakpoint_step3">
+        <condition>max-width: 500sp</condition>
+        <setter object="cube_timer_label" property="css-classes">numeric
+timer-small</setter>
+        <setter object="split_view" property="collapsed">True</setter>
+      </object>
+    </child>
     <property name="content">
       <object class="AdwOverlaySplitView" id="split_view">
         <property name="min-sidebar-width">287</property>
@@ -87,6 +112,8 @@
                             <object class="Scramble" id="scramble">
                               <property name="css_classes">scramble</property>
                               <property name="wrap">1</property>
+                              <property name="margin-start">5</property>
+                              <property name="margin-end">5</property>
                             </object>
                           </child>
                         </object>

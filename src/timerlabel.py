@@ -11,7 +11,6 @@ class CubeTimerLabel(Gtk.Label):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs, focusable = True, can_focus = True)
-        self.font_size = 100
 
         style_manager = Adw.StyleManager.get_default()
         style_manager.connect("notify::dark", self.set_color)
@@ -32,3 +31,13 @@ class CubeTimerLabel(Gtk.Label):
             color=color,
             time=time
         ))
+
+    def make_adaptive(self, size):
+        # Size is one of 0, 1
+
+        if size == 0:
+            pass
+        elif size == 1:
+            pass
+        else:
+            raise Exception("Size is out of range")

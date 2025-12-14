@@ -6,7 +6,7 @@
     <property name="label">00:00.00</property>
     <style>
       <class name="numeric"/>
-      <class name="timer"/>
+      <class name="timer-large"/>
     </style>
   </template>
 </interface>

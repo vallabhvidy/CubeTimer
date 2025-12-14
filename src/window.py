@@ -4,8 +4,6 @@ from .timerlabel import CubeTimerLabel
 from .scramble import Scramble
 from .score import ScoresColumnView
 
-scramble_moves = 25
-
 @Gtk.Template(resource_path='/io/github/vallabhvidy/CubeTimer/window.ui')
 class CubeTimerWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'CubeTimerWindow'
@@ -17,6 +15,8 @@ class CubeTimerWindow(Adw.ApplicationWindow):
     show_sidebar_button = Gtk.Template.Child()
     scores_column_view = Gtk.Template.Child()
     header_bar = Gtk.Template.Child()
+    breakpoint_step1 = Gtk.Template.Child()
+    breakpoint_step3 = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -40,4 +40,9 @@ class CubeTimerWindow(Adw.ApplicationWindow):
         self.cube_timer_label.timer.update_scores = self.scores_column_view.add_score
         self.cube_timer_label.timer.sidebar_button = self.show_sidebar_button
 
-
+        def scramble_change_scale(bp, scale):
+            self.scramble.scale_factor = scale
+            self.scramble.update_label()
+        for i in (self.breakpoint_step1, self.breakpoint_step3):
+            i.connect("apply", scramble_change_scale, 0.75)
+            i.connect("unapply", scramble_change_scale, 1)

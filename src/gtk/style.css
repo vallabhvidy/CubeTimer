@@ -1,12 +1,16 @@
-.timer {
-    font-weight: normal;
-    font-size: 134px;
-    font-family: sans-serif;
+.timer-large {
+    font-size: 125px;
+}
+
+.timer-medium {
+    font-size: 90px;
+}
+
+.timer-small {
+    font-size: 70px;
 }
 
 .scramble {
-    font-weight: normal;
-    font-family: sans-serif;
     font-size: 40px;
     color: grey;
 }
