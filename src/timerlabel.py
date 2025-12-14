@@ -12,21 +12,18 @@ class CubeTimerLabel(Gtk.Label):
     def __init__(self, **kwargs):
         super().__init__(**kwargs, focusable = True, can_focus = True)
         self.font_size = 100
-        self.color = "white" if Adw.StyleManager.get_default().get_color_scheme() == Adw.ColorScheme.PREFER_DARK else "black"
-        self.set_color()
-        self.set_label()
-        self.timer.update_label = self.set_label
-        settings = Gtk.Settings.get_default()
-        settings.connect("notify::gtk-application-prefer-dark-theme", self.theme_change)
-        
-    def theme_change(self, source, pspec):
-        self.set_color()
 
-    def set_color(self):
-        self.color = "white" if self.color == "black" else "black"
-        self.set_label()
+        style_manager = Adw.StyleManager.get_default()
+        style_manager.connect("notify::dark", self.set_color)
+        self.set_color(style_manager)
 
-    def set_label(self, color=None):
+        self.timer.update_label = self.set_colored_label
+
+    def set_color(self, style_manager, pspec=None):
+        self.color = "white" if style_manager.get_dark() else "black"
+        self.set_colored_label()
+
+    def set_colored_label(self, color=None):
         color = self.color if color == None else color
         time = time_string(self.timer.time)
         time = time if time != "DNF" else "00:00.00"
@@ -35,4 +32,3 @@ class CubeTimerLabel(Gtk.Label):
             color=color,
             time=time
         ))
-
