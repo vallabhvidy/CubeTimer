@@ -11,29 +11,31 @@
     <property name="orientation">vertical</property>
     <child>
       <object class="GtkBox">
-        <property name="margin-start">2</property>
-        <property name="margin-end">2</property>
         <property name="orientation">horizontal</property>
         <property name="hexpand">true</property>
         <style><class name="linked" /></style>
         <child>
           <object class="GtkDropDown" id="sessions_drop_down">
             <property name="hexpand">true</property>
+            <property name="tooltip-text" translatable="yes">Sessions</property>
           </object>
         </child>
         <child>
           <object class="GtkButton" id="add_session_button">
             <property name="icon-name">list-add-symbolic</property>
+            <property name="tooltip-text" translatable="yes">Add Session</property>
           </object>
         </child>
         <child>
           <object class="GtkButton" id="remove_session_button">
             <property name="icon-name">list-remove-symbolic</property>
+            <property name="tooltip-text" translatable="yes">Delete Session</property>
           </object>
         </child>
         <child>
           <object class="GtkButton" id="rename_session_button">
             <property name="icon-name">document-edit-symbolic</property>
+            <property name="tooltip-text" translatable="yes">Rename Session</property>
           </object>
         </child>
       </object>
@@ -188,6 +190,9 @@
         <child>
           <object class="GtkColumnView" id="scores_column_view">
             <property name="reorderable">false</property>
+            <style>
+              <class name="scores-column-view"/>
+            </style>
           </object>
         </child>
       </object>

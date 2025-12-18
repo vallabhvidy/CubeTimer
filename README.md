@@ -30,9 +30,15 @@ CubeTimer is available as a flatpak on flathub.
 
 ## How to build from source
 
-This project is developed in [GNOME Builder](https://developer.gnome.org/documentation/introduction/builder.html). After cloning and opening the project, you can press run to verify you have all correct dependencies installed.
+This project is primarily developed in [GNOME Builder](https://developer.gnome.org/documentation/introduction/builder.html). After cloning and opening the project, you can press run to verify you have all correct dependencies installed.
 You might need to install meson, if it is not already available on your system.
 When the project successfully ran, you can create a Flatpak-bundle on the buildchain menu, which you then can install on your system.
+
+You can also build and install this project by running the following in the root of the project:
+
+```sh
+flatpak-builder builddir --user --install --force-clean io.github.vallabhvidy.CubeTimer.json
+```
 
 ## Feedback and bug reports
 

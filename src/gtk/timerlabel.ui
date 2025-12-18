@@ -3,11 +3,10 @@
   <requires lib="gtk" version="4.0"/>
   <requires lib="Adw" version="1.4"/>
   <template class="CubeTimerLabel" parent="GtkLabel">
-    <property name="label">00:00.000</property>
-    <property name="css_classes">timer</property>
+    <property name="label">00:00.00</property>
     <style>
       <class name="numeric"/>
+      <class name="timer-large"/>
     </style>
   </template>
 </interface>
-

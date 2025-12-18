@@ -4,7 +4,7 @@
     <file alias="window.ui" preprocess="xml-stripblanks">gtk/window.ui</file>
     <file alias="timerlabel.ui" preprocess="xml-stripblanks">gtk/timerlabel.ui</file>
     <file alias="score.ui" preprocess="xml-stripblanks">gtk/score.ui</file>
-    <file preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
+    <file alias="shortcuts-dialog.ui" preprocess="xml-stripblanks">gtk/shortcuts-dialog.ui</file>
     <file alias="style.css">gtk/style.css</file>
     <file alias="style-dark.css">gtk/style-dark.css</file>
     <file alias="metainfo.xml" preprocess="xml-stripblanks">../data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in</file>
