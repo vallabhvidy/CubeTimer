@@ -1,7 +1,7 @@
 data/io.github.vallabhvidy.CubeTimer.desktop.in
 data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in
 data/io.github.vallabhvidy.CubeTimer.gschema.xml
-src/gtk/help-overlay.ui
+src/gtk/shortcuts-dialog.ui
 src/score.py
 src/scramble.py
 src/window.py

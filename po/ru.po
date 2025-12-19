@@ -200,4 +200,4 @@ msgstr ""
 
 #: src/main.py:40
 msgid "translator-credits"
-msgstr ""
+msgstr "David Sultaniiazov"

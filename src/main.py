@@ -34,16 +34,14 @@ class CubeTimerApplication(Adw.Application):
 
     def on_about_action(self, *args):
         """Callback for the app.about action."""
+        developers = [
+            "Vallabh Vidyasagar https://github.com/vallabhvidy",
+            "Pixelo789 https://codeberg.org/Pixelo789"
+        ]
         about = Adw.AboutDialog.new_from_appdata("io/github/vallabhvidy/CubeTimer/metainfo.xml", "0.1.7")
-        about.set_developers(["Vallabh Vidyasagar https://github.com/vallabhvidy"])
+        about.set_developers(developers)
         # Translators: Replace "translator-credits" with your names, one name per line
-        about.set_translator_credits("\n".join((
-            "Sultaniiazov David https://gitverse.ru/x1z53",
-            "Francehelder https://github.com/Francehelder"
-        )))
-        about.add_credit_section(_("Contributors"), (
-            "Pixelo789 https://codeberg.org/Pixelo789",
-        ))
+        about.set_translator_credits(_("translator-credits"))
         about.set_copyright("© 2025 Vallabh Vidyasagar")
         about.present(self.props.active_window)
 
