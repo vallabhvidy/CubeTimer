@@ -11,7 +11,7 @@
 	    Just long press the space-bar and start solving!
 	  </p>
 	  <p>Following puzzles are supported :- </p>
-    <ui>
+    <ul>
       <li>3x3x3</li>
       <li>2x2x2</li>
       <li>4x4x4</li>
@@ -22,7 +22,7 @@
       <li>Megaminx</li>
       <li>Pyraminx</li>
       <li>Clock</li>
-    </ui>
+    </ul>
 	</description>
   <categories>
     <category>Utility</category>
