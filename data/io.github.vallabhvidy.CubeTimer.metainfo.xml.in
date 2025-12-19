@@ -34,6 +34,17 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="0.1.8" date="2025-12-19">
+      <description translate="no">
+        <ul>
+          <li>Rework scramble generation to fix edge cases like "U D U"</li>
+          <li>Add Pyraminx, Skewb, Megaminx and Clock scrambles</li>
+          <li>UI is now adaptable to small screens</li>
+          <li>UI and QoL updates</li>
+        </ul>
+        <p>Thanks to Pixelo789 for above features and fixes</p>
+      </description>
+    </release>
     <release version="0.1.7" date="2025-11-16">
       <description translate="no">
         <ul>
