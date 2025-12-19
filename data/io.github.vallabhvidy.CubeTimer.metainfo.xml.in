@@ -4,17 +4,42 @@
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>GPL-3.0-or-later</project_license>
   <name>Cube Timer</name>
-  <summary>3x3 Rubiks Cube timer</summary>
+  <summary>Rubik's Cube timer</summary>
 	<description>
 	  <p>
-	    Cube Timer is a simple 3x3 Rubiks Cube Timer application for the gnome desktop.
+	    Cube Timer is a simple Rubik's Cube Timer application for the GNOME desktop.
 	    Just long press the space-bar and start solving!
 	  </p>
+	  <p>Following puzzles are supported :- </p>
+    <ui>
+      <li>3x3x3</li>
+      <li>2x2x2</li>
+      <li>4x4x4</li>
+      <li>5x5x5</li>
+      <li>6x6x6</li>
+      <li>7x7x7</li>
+      <li>Skewb</li>
+      <li>Megaminx</li>
+      <li>Pyraminx</li>
+      <li>Clock</li>
+    </ui>
 	</description>
+  <categories>
+    <category>Utility</category>
+    <category>Game</category>
+  </categories>
   <branding>
     <color type="primary" scheme_preference="light">#9a9996</color>
     <color type="primary" scheme_preference="dark">#865e3c</color>
   </branding>
+  <url type="homepage">https://github.com/vallabhvidy/CubeTimer</url>
+  <url type="bugtracker">https://github.com/vallabhvidy/CubeTimer/issues</url>
+  <url type="vcs-browser">https://github.com/vallabhvidy/CubeTimer</url>
+  <launchable type="desktop-id">io.github.vallabhvidy.CubeTimer.desktop</launchable>
+  <developer id="io.github.vallabhvidy">
+    <name translate="no">Vallabh Vidyasagar</name>
+  </developer>
+  <content_rating type="oars-1.1" />
   <screenshots>
     <screenshot type="default" xml:lang="en">
       <image>https://github.com/vallabhvidy/CubeTimer/raw/main/data/screenshots/ss1.png</image>
@@ -33,6 +58,10 @@
       <caption>Light Mode</caption>
     </screenshot>
   </screenshots>
+  <supports>
+    <control>pointing</control>
+    <control>touch</control>
+  </supports>
   <releases>
     <release version="0.1.8" date="2025-12-19">
       <description translate="no">
@@ -111,12 +140,4 @@
       </description>
     </release>
   </releases>
-  <url type="homepage">https://github.com/vallabhvidy/CubeTimer</url>
-  <url type="bugtracker">https://github.com/vallabhvidy/CubeTimer/issues</url>
-  <url type="vcs-browser">https://github.com/vallabhvidy/CubeTimer</url>
-  <launchable type="desktop-id">io.github.vallabhvidy.CubeTimer.desktop</launchable>
-  <developer id="io.github.vallabhvidy">
-    <name translate="no">Vallabh Vidyasagar</name>
-  </developer>
-   <content_rating type="oars-1.1" />
 </component>
