@@ -249,6 +249,9 @@ class ScoresColumnView(Gtk.Box):
         self.remove_session_dialog.connect("response", remove_session)
         self.rename_session_dialog.connect("response", rename_session)
 
+        self.add_session_dialog.set_response_enabled("add", False)
+        self.rename_session_dialog.set_response_enabled("rename", False)
+
     def build_drop_down(self):
         def on_selected_item(dropdown, selected):
             selected_item = self.sessions_drop_down.get_selected_item()
