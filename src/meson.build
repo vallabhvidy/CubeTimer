@@ -34,7 +34,8 @@ cube_timer_gtk_sources = [
   'timer.py',
   'scramble.py',
   'score.py',
-  'utils.py'
+  'utils.py',
+  'timercontroller.py'
 ]
 
 install_data(cube_timer_gtk_sources, install_dir: moduledir)

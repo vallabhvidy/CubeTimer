@@ -1,30 +1,37 @@
 from gi.repository import Gtk, Gdk, Adw
 
-from .timer import CubeTimer
 from .utils import time_string
 
 @Gtk.Template(resource_path='/io/github/vallabhvidy/CubeTimer/timerlabel.ui')
 class CubeTimerLabel(Gtk.Label):
     __gtype_name__ = 'CubeTimerLabel'
 
-    timer = CubeTimer(lambda: None)
-
     def __init__(self, **kwargs):
         super().__init__(**kwargs, focusable = True, can_focus = True)
 
+        self.time = 0
+
+        # dark mode
         style_manager = Adw.StyleManager.get_default()
-        style_manager.connect("notify::dark", self.set_color)
-        self.set_color(style_manager)
+        style_manager.connect("notify::dark", self.set_theme)
+        self.set_theme(style_manager)
 
-        self.timer.update_label = self.set_colored_label
-
-    def set_color(self, style_manager, pspec=None):
+    def set_theme(self, style_manager, pspec=None):
         self.color = "white" if style_manager.get_dark() else "black"
         self.set_colored_label()
 
-    def set_colored_label(self, color=None):
+    def set_colored_label(self, time=None, color=None):
+        """
+        update label to give time and color.
+
+        if time is not passed it remains unchanged.
+
+        if  color is not passed it changes to default color
+        set by theme.
+        """
         color = self.color if color == None else color
-        time = time_string(self.timer.time)
+        self.time = time if time else self.time
+        time = time_string(self.time)
         time = time if time != "DNF" else "00:00.00"
         time_format = _("<span color='{color}'>{time}</span>")
         self.set_markup(time_format.format(

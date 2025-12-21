@@ -238,29 +238,16 @@ class ScoresColumnView(Gtk.Box):
             self.session_rename.remove_css_class("error")
             self.rename_session_dialog.present(button)
 
-        self.add_session_dialog.add_response("add", _("Add"))
-        self.add_session_dialog.set_response_enabled("add", False)
-        self.add_session_dialog.add_response("cancel", _("Cancel"))
-        self.add_session_dialog.set_response_appearance("add", Adw.ResponseAppearance.SUGGESTED)
-        self.add_session_dialog.connect('response', add_session)
-
-        self.remove_session_dialog.add_response("delete", _("Delete"))
-        self.remove_session_dialog.add_response("cancel", _("Cancel"))
-        self.remove_session_dialog.set_response_appearance("delete", Adw.ResponseAppearance.DESTRUCTIVE)
-        self.remove_session_dialog.connect('response', remove_session)
-
-        self.rename_session_dialog.add_response("rename", _("Rename"))
-        self.rename_session_dialog.set_response_enabled("rename", False)
-        self.rename_session_dialog.add_response("cancel", _("Cancel"))
-        self.rename_session_dialog.set_response_appearance("rename", Adw.ResponseAppearance.SUGGESTED)
-        self.rename_session_dialog.connect('response', rename_session)
-
         self.add_session_button.connect("clicked", add_session_button_clicked)
         self.rename_session_button.connect("clicked", rename_session_button_clicked)
         self.remove_session_button.connect("clicked", remove_session_button_clicked)
 
         self.session_name.connect("changed", validate_name)
         self.session_rename.connect("changed", validate_rename)
+
+        self.add_session_dialog.connect("response", add_session)
+        self.remove_session_dialog.connect("response", remove_session)
+        self.rename_session_dialog.connect("response", rename_session)
 
     def build_drop_down(self):
         def on_selected_item(dropdown, selected):

@@ -232,22 +232,40 @@
   <object class="AdwAlertDialog" id="add_session_dialog">
     <property name="prefer-wide-layout">true</property>
     <property name="heading" translatable="yes">Add Session</property>
+    <property name="default-response">add</property>
+    <property name="close-response">cancel</property>
     <property name="extra-child">
       <object class="GtkEntry" id="session_name">
         <property name="placeholder-text" translatable="yes">Enter session name</property>
       </object>
     </property>
+    <responses>
+      <response id="add" translatable="yes" appearance="suggested">_Add</response>
+      <response id="cancel" translatable="yes">_Cancel</response>
+    </responses>
   </object>
   <object class="AdwAlertDialog" id="remove_session_dialog">
     <property name="prefer-wide-layout">true</property>
+    <property name="default-response">delete</property>
+    <property name="close-response">cancel</property>
+    <responses>
+      <response id="delete" translatable="yes" appearance="destructive">_Delete</response>
+      <response id="cancel" translatable="yes">_Cancel</response>
+    </responses>
   </object>
   <object class="AdwAlertDialog" id="rename_session_dialog">
     <property name="prefer-wide-layout">true</property>
     <property name="heading" translatable="yes">Rename Session</property>
+    <property name="default-response">rename</property>
+    <property name="close-response">cancel</property>
     <property name="extra-child">
       <object class="GtkEntry" id="session_rename">
         <property name="placeholder-text" translatable="yes">Enter session name</property>
       </object>
     </property>
+    <responses>
+      <response id="rename" translatable="yes" appearance="suggested">_Rename</response>
+      <response id="cancel" translatable="yes">_Cancel</response>
+    </responses>
   </object>
 </interface>

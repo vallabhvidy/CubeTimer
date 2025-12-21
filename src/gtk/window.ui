@@ -69,7 +69,6 @@ timer-small</setter>
               <object class="AdwToolbarView">
                 <child type="top">
                   <object class="AdwHeaderBar" id="header_bar">
-                    <property name="show-title">false</property>
                     <child type="start">
                       <object class="GtkToggleButton" id="show_sidebar_button">
                         <property name="icon-name">sidebar-show-symbolic</property>
@@ -79,7 +78,7 @@ timer-small</setter>
                       </object>
                     </child>
                     <child type="title">
-                      <object class="GtkDropDown">
+                      <object class="GtkDropDown" id="puzzle_dropdown">
                         <property name="tooltip-text" translatable="yes">Puzzle Type</property>
                         <property name="model">
                           <object class="GtkStringList">
