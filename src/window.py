@@ -1,9 +1,10 @@
-from gi.repository import Adw, Gtk, Gdk, GLib
+from gi.repository import Adw, Gtk
 
 from .timerlabel import CubeTimerLabel
 from .scramble import Scramble
 from .score import ScoresColumnView
 from .timercontroller import TimerController
+from .preferences import settings
 
 @Gtk.Template(resource_path='/io/github/vallabhvidy/CubeTimer/window.ui')
 class CubeTimerWindow(Adw.ApplicationWindow):
@@ -22,14 +23,17 @@ class CubeTimerWindow(Adw.ApplicationWindow):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.controller = TimerController(Gdk.KEY_space)
+        self.controller = TimerController()
 
+        self.zen_mode = settings.get_boolean("zen-mode")
+        settings.connect("changed::zen-mode", self.set_zen_mode)
         self.widgets = [
             self.puzzle_dropdown,
             self.scramble,
             self.show_sidebar_button
         ]
 
+        # make ui react to states
         self.controller.connect("idle", self.idle)
         self.controller.connect("red", self.red)
         self.controller.connect("green", self.green)
@@ -71,16 +75,21 @@ class CubeTimerWindow(Adw.ApplicationWindow):
     def green(self, inst):
         self.cube_timer_label.set_colored_label(time=0, color="green")
         self.sidebar_state = self.split_view.get_show_sidebar()
-        self.split_view.set_show_sidebar(False)
-        for widget in self.widgets:
-            widget.set_visible(False)
+        if self.zen_mode:
+            self.split_view.set_show_sidebar(False)
+            for widget in self.widgets:
+                widget.set_visible(False)
 
     def solving(self, inst, time):
         self.cube_timer_label.set_colored_label(time=time)
 
     def solved(self, inst, time):
-        self.split_view.set_show_sidebar(self.sidebar_state)
         self.scores_column_view.add_score(time, self.scramble.scramble)
         self.scramble.update_scramble()
-        for widget in self.widgets:
-            widget.set_visible(True)
+        if self.zen_mode:
+            self.split_view.set_show_sidebar(self.sidebar_state)
+            for widget in self.widgets:
+                widget.set_visible(True)
+
+    def set_zen_mode(self, settings, key_changed):
+        self.zen_mode = settings.get_boolean("zen-mode")

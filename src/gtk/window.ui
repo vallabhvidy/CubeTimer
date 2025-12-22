@@ -138,10 +138,10 @@ timer-small</setter>
     </template>
   <menu id="primary_menu">
     <section>
-      <!-- <item> -->
-      <!--   <attribute name="label" translatable="yes">_Preferences</attribute> -->
-      <!--   <attribute name="action">app.preferences</attribute> -->
-      <!-- </item> -->
+      <item>
+        <attribute name="label" translatable="yes">_Preferences</attribute>
+        <attribute name="action">app.preferences</attribute>
+      </item>
       <item>
         <attribute name="label" translatable="yes">View Scores File</attribute>
         <attribute name="action">app.view_scores</attribute>

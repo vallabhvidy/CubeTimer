@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="cube-timer">
 	<schema id="io.github.vallabhvidy.CubeTimer" path="/io/github/vallabhvidy/CubeTimer/">
+    <key name="hold-to-start" type="b">
+      <default>true</default>
+      <description>Hold to start</description>
+    </key>
+	  <key name="wca-inspection" type="b">
+      <default>false</default>
+      <description>Enable WCA inspection</description>
+    </key>
+	  <key name="stop-timer-any-key" type="b">
+      <default>true</default>
+      <description>Stop the timer with any key</description>
+    </key>
+	  <key name="zen-mode" type="b">
+      <default>true</default>
+      <description>Hide all elements while solving</description>
+    </key>
+	  <key name="precision" type="i">
+      <default>2</default>
+      <description>Number of digits after decimal point</description>
+    </key>
 	</schema>
 </schemalist>

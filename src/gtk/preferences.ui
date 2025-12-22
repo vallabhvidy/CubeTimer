@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="Adw" version="1.4"/>
+  <template class="Preferences" parent="AdwPreferencesDialog">
+    <property name="content-width">800</property>
+    <property name="content-height">600</property>
+    <property name="title" translatable="yes">Preferences</property>
+    <child>
+      <object class="AdwPreferencesPage">
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Solving</property>
+            <child>
+              <object class="AdwSwitchRow" id="hold_to_start">
+                <property name="title" translatable="yes">Hold to Start</property>
+                <property name="subtitle" translatable="yes">Hold the spacebar to start the timer</property>
+                <property name="active">true</property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwSwitchRow" id="wca_inspection">
+                <property name="title" translatable="yes">WCA Inspection</property>
+                <property name="subtitle" translatable="yes">15-seconds period to inspect the puzzle</property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwSwitchRow" id="stop_timer_any_key">
+                <property name="title" translatable="yes">Stop timer with any key</property>
+                <property name="subtitle" translatable="yes">Stop timer with any key not just the spacebar</property>
+                <property name="active">true</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title">Appearance</property>
+            <child>
+              <object class="AdwSwitchRow" id="zen_mode">
+                <property name="title" translatable="yes">Zen Mode</property>
+                <property name="subtitle" translatable="yes">Hide all elements while solving</property>
+                <property name="active">true</property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwSpinRow" id="precision">
+                <property name="title" translatable="yes">Timer Precision</property>
+                <property name="subtitle" translatable="yes">Number of digits after decimal point</property>
+                <property name="adjustment">
+                  <object class="GtkAdjustment">
+                    <property name="lower">0</property>
+                    <property name="upper">3</property>
+                    <property name="step-increment">1</property>
+                  </object>
+                </property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
