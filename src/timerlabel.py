@@ -1,6 +1,6 @@
 from gi.repository import Gtk, Gdk, Adw
 
-from .utils import time_string
+from .utils import time_string, zero_time
 
 @Gtk.Template(resource_path='/io/github/vallabhvidy/CubeTimer/timerlabel.ui')
 class CubeTimerLabel(Gtk.Label):
@@ -32,7 +32,7 @@ class CubeTimerLabel(Gtk.Label):
         color = self.color if color == None else color
         self.time = time if time is not None else self.time
         time = time_string(self.time)
-        time = time if time != "DNF" else "00:00.00"
+        time = time if time != "DNF" else zero_time()
         time_format = _("<span color='{color}'>{time}</span>")
         self.set_markup(time_format.format(
             color=color,

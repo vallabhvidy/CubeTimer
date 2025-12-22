@@ -10,34 +10,50 @@ class CubeTimerModel:
 
     def load(self):
         # for backward compatibility
-        def modscore(score):
-            if "min" not in score:
+        def modscore(score, version):
+            if version == 2:
                 return score
-            score["time"] = score["min"] * 6000 + score["sec"] * 100 + score["mili"]
-            score.pop("min", None)
-            score.pop("sec", None)
-            score.pop("mili", None)
-            score.pop("ao5", None)
-            score.pop("ao12", None)
+
+            # for version 0 where mins, secs and milisecs were
+            # stored separately
+            if "min" in score:
+                score["time"] = score["min"] * 6000 + score["sec"] * 100 + score["mili"]
+                score.pop("min", None)
+                score.pop("sec", None)
+                score.pop("mili", None)
+                score.pop("ao5", None)
+                score.pop("ao12", None)
+                score["time"] *= 10
+                return score
+
+            # version 1 where times were stored in
+            # centiseconds
+            if version == 1 and "time" in score:
+                score["time"] *= 10
+                return score
+
             return score
 
         try:
             with open(self.path, 'r') as scores_file:
                 sessions = json.load(scores_file)
                 self.sessions["last-session"] = sessions.get("last-session", _("Session 1"))
+                version = sessions.get("version", 1)
                 for session in sessions:
-                    if session == "last-session":
+                    if session == "last-session" or session == "version":
                         continue
                     self.sessions[session] = []
                     for score in sessions[session]:
-                        self.sessions[session].append(modscore(score))
+                        self.sessions[session].append(modscore(score, version))
+
         except FileNotFoundError:
             print(_("scores.json not found."))
-            self.sessions = {_("Session 1"): [], "last-session": _("Session 1")}
+            self.sessions = {_("Session 1"): [], "last-session": _("Session 1"), "version": 2}
 
         self.save()
 
     def save(self):
+        self.sessions["version"] = 2
         with open(self.path, "w") as scores_file:
             json.dump(self.sessions, scores_file)
 

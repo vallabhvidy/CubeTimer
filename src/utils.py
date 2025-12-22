@@ -3,9 +3,17 @@ from pathlib import Path
 import os
 from math import ceil
 
+from .preferences import settings
+
 data_dir = Path(os.getenv('XDG_DATA_HOME', Path.home() / '.local/share')) / 'flatpak' / 'apps' / 'cube-timer' / 'CubeTimer'
 data_dir.mkdir(parents=True, exist_ok=True)
 scores_file_path = data_dir / 'scores.json'
+precision = settings.get_int("precision")
+def update_precision(settings, key_changed):
+    global precision
+    precision = settings.get_int("precision")
+settings.connect("changed::precision", update_precision)
+
 
 opposing_faces = {
     "U": "D",
@@ -44,11 +52,14 @@ directions_3 = ("", "'")
 directions_4 = ("", "'", "2")
 
 def calc_time(time):
-    minutes = time // 6000
-    seconds = (time % 6000) // 100
-    milisec = (time % 6000) % 100 // 1
+    minutes = time // 60000
+    seconds = (time % 60000) // 1000
+    milisec = (time % 60000) % 1000 // 1
 
     return minutes, seconds, milisec
+
+def zero_time():
+    return "00:00."+"0"*precision
 
 def time_string(time):
     if time == -1:
@@ -57,14 +68,16 @@ def time_string(time):
     if time == 0:
         return "DNF"
 
-    minutes = time // 6000
-    seconds = (time % 6000) // 100
-    milisec = (time % 6000) % 100 // 1
+    minutes = time // 60000
+    seconds = (time % 60000) // 1000
+    milisec = ((time % 60000) % 1000) // 1
 
-    time_str = "{minutes:02d}:{seconds:02d}.{milisec:02d}".format(minutes=minutes, seconds=seconds, milisec=milisec)
+    ms = "{milisec:03d}".format(milisec=milisec)
+    ms = ms[:precision]
+
+    time_str = "{minutes:02d}:{seconds:02d}.{ms}".format(minutes=minutes, seconds=seconds, ms=ms)
 
     return time_str
-
 
 # Scrambling
 

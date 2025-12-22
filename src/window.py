@@ -27,6 +27,7 @@ class CubeTimerWindow(Adw.ApplicationWindow):
 
         self.zen_mode = settings.get_boolean("zen-mode")
         settings.connect("changed::zen-mode", self.set_zen_mode)
+        settings.connect("changed::precision", lambda s, k: self.refresh())
         self.widgets = [
             self.puzzle_dropdown,
             self.scramble,
@@ -93,3 +94,8 @@ class CubeTimerWindow(Adw.ApplicationWindow):
 
     def set_zen_mode(self, settings, key_changed):
         self.zen_mode = settings.get_boolean("zen-mode")
+
+    def refresh(self):
+        self.scores_column_view.load_scores()
+        self.cube_timer_label.set_colored_label()
+
