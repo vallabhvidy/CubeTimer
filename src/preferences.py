@@ -15,6 +15,8 @@ class Preferences(Adw.PreferencesDialog):
     def __init__(self, **kargs):
         super().__init__(**kargs)
 
+        self.wca_inspection.set_visible(False)
+
         settings.bind("hold-to-start", self.hold_to_start, "active", Gio.SettingsBindFlags.DEFAULT)
         settings.bind("wca-inspection", self.wca_inspection, "active", Gio.SettingsBindFlags.DEFAULT)
         settings.bind("stop-timer-any-key", self.stop_timer_any_key, "active", Gio.SettingsBindFlags.DEFAULT)
