@@ -1,0 +1,212 @@
+# Brazilian Portuguese translation for cube-timer.
+# Copyright (C) 2025 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the cube-timer package.
+# Automatically generated, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cube-timer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-19 11:27+0530\n"
+"PO-Revision-Date: 2025-12-22 12:32+0000\n"
+"Last-Translator: GPT-5.1-Codex-Max <noreply@example.com>\n"
+"Language-Team: Brazilian Portuguese\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: data/io.github.vallabhvidy.CubeTimer.desktop.in:2
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:6 src/gtk/window.ui:40
+msgid "Cube Timer"
+msgstr "Cube Timer"
+
+#: data/io.github.vallabhvidy.CubeTimer.desktop.in:8
+msgid "solve;timer;rubiks;cube;"
+msgstr "solve;timer;rubiks;cube;cronometro;cubo;magico;"
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:7
+msgid "3x3 Rubiks Cube timer"
+msgstr "Cronômetro para Cubo Mágico 3x3"
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:9
+msgid ""
+"Cube Timer is a simple 3x3 Rubiks Cube Timer application for the gnome "
+"desktop. Just long press the space-bar and start solving!"
+msgstr ""
+"Cube Timer é um aplicativo simples de cronômetro para cubo mágico 3x3 no "
+"desktop GNOME. Basta segurar a barra de espaço e começar a resolver!"
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:21
+msgid "Main window"
+msgstr "Janela principal"
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:25
+msgid "When the timer is running"
+msgstr "Quando o cronômetro está em execução"
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:29
+msgid "Mark a solve as DNF or delete it"
+msgstr "Marque uma resolução como DNF ou exclua-a"
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:33
+msgid "Light Mode"
+msgstr "Modo claro"
+
+#: src/gtk/shortcuts-dialog.ui:6
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Geral"
+
+#: src/gtk/shortcuts-dialog.ui:9
+msgctxt "shortcut window"
+msgid "Start Timer"
+msgstr "Iniciar cronômetro"
+
+#: src/gtk/shortcuts-dialog.ui:15
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Mostrar atalhos"
+
+#: src/gtk/shortcuts-dialog.ui:21
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Sair"
+
+#: src/score.py:27 src/score.py:36 src/score.py:177 src/score.py:179
+msgid "Session 1"
+msgstr "Sessão 1"
+
+#: src/score.py:35
+msgid "scores.json not found."
+msgstr "scores.json não encontrado."
+
+#: src/score.py:232
+#, python-brace-format
+msgid "Delete {session}?"
+msgstr "Excluir {session}?"
+
+#: src/score.py:241
+msgid "Add"
+msgstr "Adicionar"
+
+#: src/score.py:243 src/score.py:248 src/score.py:254 src/score.py:396
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/score.py:247 src/score.py:395
+msgid "Delete"
+msgstr "Excluir"
+
+#: src/score.py:252
+msgid "Rename"
+msgstr "Renomear"
+
+#: src/score.py:314
+#, python-brace-format
+msgid ""
+"Scramble:- {scramble}\n"
+"\n"
+"Time:- {time}"
+msgstr ""
+"Embaralhamento: {scramble}\n"
+"\n"
+"Tempo: {time}"
+
+#: src/score.py:316
+#, python-brace-format
+msgid "Solve No. {idx}"
+msgstr "Resolução nº {idx}"
+
+#: src/score.py:370
+msgid "Sr."
+msgstr "Nº"
+
+#: src/score.py:371 src/gtk/score.ui:78 src/gtk/score.ui:211
+msgid "Time"
+msgstr "Tempo"
+
+#: src/score.py:372 src/gtk/score.ui:100
+msgid "ao5"
+msgstr "ao5"
+
+#: src/score.py:373 src/gtk/score.ui:111
+msgid "ao12"
+msgstr "ao12"
+
+#: src/score.py:394
+msgid "Mark DNF"
+msgstr "Marcar como DNF"
+
+#: src/scramble.py:47
+msgid "Enter scramble length:- "
+msgstr "Informe o tamanho do embaralhamento: "
+
+#: src/gtk/window.ui:51
+msgid "Menu"
+msgstr "Menu"
+
+#: src/gtk/window.ui:66
+msgid "Content"
+msgstr "Conteúdo"
+
+#: src/gtk/window.ui:76
+msgid "Toggle Sidebar"
+msgstr "Alternar barra lateral"
+
+#: src/gtk/window.ui:83
+msgid "Puzzle Type"
+msgstr "Tipo de quebra-cabeça"
+
+#: src/gtk/window.ui:147
+msgid "View Scores File"
+msgstr "Ver arquivo de tempos"
+
+#: src/gtk/window.ui:151
+msgid "_Keyboard Shortcuts"
+msgstr "Atalhos de _teclado"
+
+#: src/gtk/window.ui:155
+msgid "_About Cube Timer"
+msgstr "_Sobre o Cube Timer"
+
+#: src/gtk/score.ui:20
+msgid "Sessions"
+msgstr "Sessões"
+
+#: src/gtk/score.ui:26 src/gtk/score.ui:234
+msgid "Add Session"
+msgstr "Adicionar sessão"
+
+#: src/gtk/score.ui:32
+msgid "Delete Session"
+msgstr "Excluir sessão"
+
+#: src/gtk/score.ui:38 src/gtk/score.ui:246
+msgid "Rename Session"
+msgstr "Renomear sessão"
+
+#: src/gtk/score.ui:58
+msgid "Current"
+msgstr "Atual"
+
+#: src/gtk/score.ui:68
+msgid "Best"
+msgstr "Melhor"
+
+#: src/gtk/score.ui:89
+msgid "mo3"
+msgstr "mo3"
+
+#: src/gtk/score.ui:221
+msgid "Scramble"
+msgstr "Embaralhamento"
+
+#: src/gtk/score.ui:237 src/gtk/score.ui:249
+msgid "Enter session name"
+msgstr "Digite o nome da sessão"
+
+#: src/main.py:44
+msgid "translator-credits"
+msgstr "Renato Tavares"
