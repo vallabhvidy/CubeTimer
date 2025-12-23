@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cube-timer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-23 12:36+0530\n"
+"POT-Creation-Date: 2025-12-23 19:02+0530\n"
 "PO-Revision-Date: 2025-07-16 18:25+0530\n"
 "Last-Translator: Francehelder Santos\n"
 "Language-Team: Portuguese\n"
@@ -146,10 +146,15 @@ msgstr "Iniciar Cronômetro"
 
 #: src/gtk/shortcuts-dialog.ui:15
 msgctxt "shortcut window"
+msgid "Toggle Fullscreen"
+msgstr ""
+
+#: src/gtk/shortcuts-dialog.ui:21
+msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "Mostrar Atalhos"
 
-#: src/gtk/shortcuts-dialog.ui:21
+#: src/gtk/shortcuts-dialog.ui:27
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Sair"
@@ -236,10 +241,14 @@ msgid "View Scores File"
 msgstr "Ver arquivo de resoluções"
 
 #: src/gtk/window.ui:150
+msgid "Toggle Fullscreen"
+msgstr ""
+
+#: src/gtk/window.ui:154
 msgid "_Keyboard Shortcuts"
 msgstr "_Atalhos de Teclado"
 
-#: src/gtk/window.ui:154
+#: src/gtk/window.ui:158
 msgid "_About Cube Timer"
 msgstr "_Sobre o Cube Timer"
 
@@ -285,7 +294,7 @@ msgstr "Add Nome da Sessão"
 
 #: src/gtk/score.ui:243
 msgid "_Add"
-msgstr ""
+msgstr "Adicionar"
 
 #: src/gtk/score.ui:244 src/gtk/score.ui:253 src/gtk/score.ui:268
 #, fuzzy
@@ -305,7 +314,7 @@ msgstr "Apagar"
 msgid "_Rename"
 msgstr "Renomear"
 
-#: src/main.py:45
+#: src/main.py:46
 msgid "translator-credits"
 msgstr "Francehelder Santos"
 
