@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 11:27+0530\n"
+"POT-Creation-Date: 2025-12-23 12:36+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,29 +27,101 @@ msgid "solve;timer;rubiks;cube;"
 msgstr ""
 
 #: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:7
-msgid "3x3 Rubiks Cube timer"
+msgid "Rubik's Cube timer"
 msgstr ""
 
 #: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:9
 msgid ""
-"Cube Timer is a simple 3x3 Rubiks Cube Timer application for the gnome "
-"desktop. Just long press the space-bar and start solving!"
+"Cube Timer is a simple Rubik's Cube Timer application for the GNOME desktop. "
+"Just long press the space-bar and start solving!"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:13
+msgid "Following puzzles are supported :-"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:15
+msgid "3x3x3"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:16
+msgid "2x2x2"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:17
+msgid "4x4x4"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:18
+msgid "5x5x5"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:19
+msgid "6x6x6"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:20
+msgid "7x7x7"
 msgstr ""
 
 #: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:21
+msgid "Skewb"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:22
+msgid "Megaminx"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:23
+msgid "Pyraminx"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:24
+msgid "Clock"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:46
 msgid "Main window"
 msgstr ""
 
-#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:25
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:50
 msgid "When the timer is running"
 msgstr ""
 
-#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:29
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:54
 msgid "Mark a solve as DNF or delete it"
 msgstr ""
 
-#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:33
+#: data/io.github.vallabhvidy.CubeTimer.metainfo.xml.in:58
 msgid "Light Mode"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:6
+msgid "Hold to start"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:10
+msgid "Enable WCA inspection"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:14
+msgid "Stop the timer with any key"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:18
+msgid "Use WCA rules to calculate averages"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:22
+msgid "Hide all elements while solving"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:26
+msgid "Always show minutes while solving"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:30
+msgid "Number of digits after decimal point"
 msgstr ""
 
 #: src/gtk/shortcuts-dialog.ui:6
@@ -72,36 +144,16 @@ msgctxt "shortcut window"
 msgid "Quit"
 msgstr ""
 
-#: src/score.py:27 src/score.py:36 src/score.py:177 src/score.py:179
+#: src/score.py:81 src/score.py:83
 msgid "Session 1"
 msgstr ""
 
-#: src/score.py:35
-msgid "scores.json not found."
-msgstr ""
-
-#: src/score.py:232
+#: src/score.py:136
 #, python-brace-format
 msgid "Delete {session}?"
 msgstr ""
 
-#: src/score.py:241
-msgid "Add"
-msgstr ""
-
-#: src/score.py:243 src/score.py:248 src/score.py:254 src/score.py:396
-msgid "Cancel"
-msgstr ""
-
-#: src/score.py:247 src/score.py:395
-msgid "Delete"
-msgstr ""
-
-#: src/score.py:252
-msgid "Rename"
-msgstr ""
-
-#: src/score.py:314
+#: src/score.py:211
 #, python-brace-format
 msgid ""
 "Scramble:- {scramble}\n"
@@ -109,29 +161,37 @@ msgid ""
 "Time:- {time}"
 msgstr ""
 
-#: src/score.py:316
+#: src/score.py:213
 #, python-brace-format
 msgid "Solve No. {idx}"
 msgstr ""
 
-#: src/score.py:370
+#: src/score.py:267
 msgid "Sr."
 msgstr ""
 
-#: src/score.py:371 src/gtk/score.ui:78 src/gtk/score.ui:211
+#: src/score.py:268 src/gtk/score.ui:78 src/gtk/score.ui:211
 msgid "Time"
 msgstr ""
 
-#: src/score.py:372 src/gtk/score.ui:100
+#: src/score.py:269 src/gtk/score.ui:100
 msgid "ao5"
 msgstr ""
 
-#: src/score.py:373 src/gtk/score.ui:111
+#: src/score.py:270 src/gtk/score.ui:111
 msgid "ao12"
 msgstr ""
 
-#: src/score.py:394
+#: src/score.py:291
 msgid "Mark DNF"
+msgstr ""
+
+#: src/score.py:292
+msgid "Delete"
+msgstr ""
+
+#: src/score.py:293
+msgid "Cancel"
 msgstr ""
 
 #: src/scramble.py:47
@@ -146,23 +206,27 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: src/gtk/window.ui:76
+#: src/gtk/window.ui:75
 msgid "Toggle Sidebar"
 msgstr ""
 
-#: src/gtk/window.ui:83
+#: src/gtk/window.ui:82
 msgid "Puzzle Type"
 msgstr ""
 
-#: src/gtk/window.ui:147
+#: src/gtk/window.ui:142
+msgid "_Preferences"
+msgstr ""
+
+#: src/gtk/window.ui:146
 msgid "View Scores File"
 msgstr ""
 
-#: src/gtk/window.ui:151
+#: src/gtk/window.ui:150
 msgid "_Keyboard Shortcuts"
 msgstr ""
 
-#: src/gtk/window.ui:155
+#: src/gtk/window.ui:154
 msgid "_About Cube Timer"
 msgstr ""
 
@@ -178,7 +242,7 @@ msgstr ""
 msgid "Delete Session"
 msgstr ""
 
-#: src/gtk/score.ui:38 src/gtk/score.ui:246
+#: src/gtk/score.ui:38 src/gtk/score.ui:258
 msgid "Rename Session"
 msgstr ""
 
@@ -198,10 +262,26 @@ msgstr ""
 msgid "Scramble"
 msgstr ""
 
-#: src/gtk/score.ui:237 src/gtk/score.ui:249
+#: src/gtk/score.ui:239 src/gtk/score.ui:263
 msgid "Enter session name"
 msgstr ""
 
-#: src/main.py:44
+#: src/gtk/score.ui:243
+msgid "_Add"
+msgstr ""
+
+#: src/gtk/score.ui:244 src/gtk/score.ui:253 src/gtk/score.ui:268
+msgid "_Cancel"
+msgstr ""
+
+#: src/gtk/score.ui:252
+msgid "_Delete"
+msgstr ""
+
+#: src/gtk/score.ui:267
+msgid "_Rename"
+msgstr ""
+
+#: src/main.py:45
 msgid "translator-credits"
 msgstr ""
