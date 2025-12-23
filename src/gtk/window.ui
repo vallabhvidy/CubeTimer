@@ -9,14 +9,14 @@
     <property name="default-height">800</property>
     <child>
       <object class="AdwBreakpoint" id="breakpoint_step1">
-        <condition>max-width: 900sp</condition>
+        <condition>max-width: 1000sp</condition>
         <setter object="cube_timer_label" property="css-classes">numeric
 timer-medium</setter>
       </object>
     </child>
     <child>
       <object class="AdwBreakpoint" id="breakpoint_step2">
-        <condition>max-width: 700sp</condition>
+        <condition>max-width: 750sp</condition>
         <setter object="cube_timer_label" property="css-classes">numeric
 timer-medium</setter>
         <setter object="split_view" property="collapsed">True</setter>
@@ -24,7 +24,7 @@ timer-medium</setter>
     </child>
     <child>
       <object class="AdwBreakpoint" id="breakpoint_step3">
-        <condition>max-width: 500sp</condition>
+        <condition>max-width: 600sp</condition>
         <setter object="cube_timer_label" property="css-classes">numeric
 timer-small</setter>
         <setter object="split_view" property="collapsed">True</setter>

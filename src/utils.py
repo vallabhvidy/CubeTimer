@@ -74,10 +74,11 @@ def time_string(time):
 
     ms = "{milisec:03d}".format(milisec=milisec)
     ms = ms[:precision]
+    fraction = (time % 1000) // (10 ** (3 - precision))
 
     time_str = "{minutes:02d}:{seconds:02d}.{ms}".format(minutes=minutes, seconds=seconds, ms=ms)
 
-    return time_str
+    return f"{minutes:02d}:{seconds:02d}.{fraction:0{precision}d}"
 
 # Scrambling
 
