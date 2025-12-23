@@ -147,6 +147,10 @@ timer-small</setter>
         <attribute name="action">app.view_scores</attribute>
       </item>
       <item>
+        <attribute name="label" translatable="yes">Toggle Fullscreen</attribute>
+        <attribute name="action">app.fullscreen</attribute>
+      </item>
+      <item>
         <attribute name="label" translatable="yes">_Keyboard Shortcuts</attribute>
         <attribute name="action">app.shortcuts</attribute>
       </item>

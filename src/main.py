@@ -21,6 +21,7 @@ class CubeTimerApplication(Adw.Application):
         self.create_action('about', self.on_about_action)
         self.create_action('view_scores', self.on_view_scores)
         self.create_action('preferences', self.on_preferences_action)
+        self.create_action('fullscreen', self.toggle_fullscreen, ['F11'])
 
     def do_activate(self):
         """Called when the application is activated.
@@ -45,6 +46,13 @@ class CubeTimerApplication(Adw.Application):
         about.set_translator_credits(_("translator-credits"))
         about.set_copyright("© 2025 Vallabh Vidyasagar")
         about.present(self.props.active_window)
+
+    def toggle_fullscreen(self, widget, _):
+        win = self.props.active_window
+        if win.is_fullscreen():
+            win.unfullscreen()
+        else:
+            win.fullscreen()
 
     def on_preferences_action(self, widget, _):
         """Callback for the app.preferences action."""
