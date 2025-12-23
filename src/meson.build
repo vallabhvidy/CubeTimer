@@ -36,7 +36,8 @@ cube_timer_gtk_sources = [
   'score.py',
   'utils.py',
   'timercontroller.py',
-  'preferences.py'
+  'preferences.py',
+  'scoresmodel.py'
 ]
 
 install_data(cube_timer_gtk_sources, install_dir: moduledir)

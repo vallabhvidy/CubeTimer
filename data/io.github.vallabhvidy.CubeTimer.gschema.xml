@@ -13,9 +13,17 @@
       <default>true</default>
       <description>Stop the timer with any key</description>
     </key>
+	  <key name="wca-avg" type="b">
+      <default>false</default>
+      <description>Use WCA rules to calculate averages</description>
+    </key>
 	  <key name="zen-mode" type="b">
       <default>true</default>
       <description>Hide all elements while solving</description>
+    </key>
+	  <key name="show-mins" type="b">
+      <default>false</default>
+      <description>Always show minutes while solving</description>
     </key>
 	  <key name="precision" type="i">
       <default>2</default>

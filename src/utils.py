@@ -9,11 +9,51 @@ data_dir = Path(os.getenv('XDG_DATA_HOME', Path.home() / '.local/share')) / 'fla
 data_dir.mkdir(parents=True, exist_ok=True)
 scores_file_path = data_dir / 'scores.json'
 precision = settings.get_int("precision")
-def update_precision(settings, key_changed):
-    global precision
+show_mins = settings.get_boolean("show-mins")
+def update(settings, key_changed):
+    global precision, show_mins
     precision = settings.get_int("precision")
-settings.connect("changed::precision", update_precision)
+    show_mins = settings.get_boolean("show-mins")
+settings.connect("changed", update)
 
+def calc_time(time):
+    minutes = time // 60000
+    seconds = (time % 60000) // 1000
+    milisec = (time % 60000) % 1000 // 1
+
+    return minutes, seconds, milisec
+
+def zero_time():
+    if not show_mins:
+        return "0."+"0"*precision
+    return "0:00."+"0"*precision
+
+def time_string(time, updating=False):
+    if time == -1:
+        return "-"
+
+    if time == 0:
+        return "DNF"
+
+    minutes = time // 60000
+    seconds = (time % 60000) // 1000
+    milisec = ((time % 60000) % 1000) // 1
+
+    ms = "{milisec:03d}".format(milisec=milisec)
+    if not updating:
+        ms = ms[:precision]
+    else:
+        ms = ms[0]
+
+    time_str = ""
+    if minutes > 0 or show_mins:
+        time_str = "{minutes}:{seconds:02d}.{ms}".format(minutes=minutes, seconds=seconds, ms=ms)
+    else:
+        time_str = "{seconds}.{ms}".format(seconds=seconds, ms=ms)
+
+    return time_str
+
+# Scrambling
 
 opposing_faces = {
     "U": "D",
@@ -50,35 +90,6 @@ _6_7_moves = (
 )
 directions_3 = ("", "'")
 directions_4 = ("", "'", "2")
-
-def calc_time(time):
-    minutes = time // 60000
-    seconds = (time % 60000) // 1000
-    milisec = (time % 60000) % 1000 // 1
-
-    return minutes, seconds, milisec
-
-def zero_time():
-    return "00:00."+"0"*precision
-
-def time_string(time):
-    if time == -1:
-        return "-"
-
-    if time == 0:
-        return "DNF"
-
-    minutes = time // 60000
-    seconds = (time % 60000) // 1000
-    milisec = ((time % 60000) % 1000) // 1
-
-    ms = "{milisec:03d}".format(milisec=milisec)
-    ms = ms[:precision]
-    fraction = (time % 1000) // (10 ** (3 - precision))
-
-    time_str = "{minutes:02d}:{seconds:02d}.{ms}".format(minutes=minutes, seconds=seconds, ms=ms)
-
-    return f"{minutes:02d}:{seconds:02d}.{fraction:0{precision}d}"
 
 # Scrambling
 

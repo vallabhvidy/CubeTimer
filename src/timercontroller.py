@@ -36,6 +36,7 @@ class TimerController(GObject.Object):
         self.timer_key = Gdk.KEY_space
 
         self.timer.connect("update", lambda inst: self.emit("solving", self.timer.time))
+        self.timer.connect("stop", lambda inst: self.emit("solved", self.timer.time))
 
         self.hold = settings.get_boolean("hold-to-start")
         self.wca = settings.get_boolean("wca-inspection")
@@ -58,7 +59,6 @@ class TimerController(GObject.Object):
         # if timer is running stop it
         if self.state == 3 and (self.any_key or keyval == self.timer_key):
             self.timer.stop_timer()
-            self.emit("solved", self.timer.time)
             self.state = 0
             return True
 

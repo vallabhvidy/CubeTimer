@@ -1,121 +1,7 @@
-from gi.repository import Gtk, GLib, GObject, Gio, Adw, Pango
-from .utils import calc_time, time_string, scores_file_path
+from gi.repository import Gtk, GLib, GObject, Gio, Adw
+from .utils import time_string
+from .scoresmodel import ScoresModel
 import json
-
-class CubeTimerModel:
-    def __init__(self):
-        self.path = scores_file_path
-        self.sessions = {}
-        self.load()
-
-    def load(self):
-        # for backward compatibility
-        def modscore(score, version):
-            if version == 2:
-                return score
-
-            # for version 0 where mins, secs and milisecs were
-            # stored separately
-            if "min" in score:
-                score["time"] = score["min"] * 6000 + score["sec"] * 100 + score["mili"]
-                score.pop("min", None)
-                score.pop("sec", None)
-                score.pop("mili", None)
-                score.pop("ao5", None)
-                score.pop("ao12", None)
-                score["time"] *= 10
-                return score
-
-            # version 1 where times were stored in
-            # centiseconds
-            if version == 1 and "time" in score:
-                score["time"] *= 10
-                return score
-
-            return score
-
-        try:
-            with open(self.path, 'r') as scores_file:
-                sessions = json.load(scores_file)
-                self.sessions["last-session"] = sessions.get("last-session", _("Session 1"))
-                version = sessions.get("version", 1)
-                for session in sessions:
-                    if session == "last-session" or session == "version":
-                        continue
-                    self.sessions[session] = []
-                    for score in sessions[session]:
-                        self.sessions[session].append(modscore(score, version))
-
-        except FileNotFoundError:
-            print(_("scores.json not found."))
-            self.sessions = {_("Session 1"): [], "last-session": _("Session 1"), "version": 2}
-
-        self.save()
-
-    def save(self):
-        self.sessions["version"] = 2
-        with open(self.path, "w") as scores_file:
-            json.dump(self.sessions, scores_file)
-
-    def set_last_session(self, session):
-        self.sessions["last-session"] = session
-        self.save()
-
-    def get_session(self, session):
-        return self.sessions[session]
-
-    def get_score(self, session, index):
-        return self.sessions[session][index]
-
-    def get_all_sessions(self):
-        sessions = [session for session in self.sessions.keys() if session != "last-session" ]
-        return sessions
-
-    def get_last_session(self):
-        return self.sessions["last-session"]
-
-    def add_session(self, session):
-        self.sessions[session] = []
-        self.set_last_session(session)
-        self.save()
-
-    def rename_session(self, new_session, old_session):
-        self.sessions[new_session] = self.sessions.pop(old_session)
-        self.save()
-
-    def remove_session(self, session):
-        self.sessions.pop(session, None)
-        self.save()
-
-    def add_score(self, session, score):
-        self.sessions[session].append(score)
-        self.save()
-
-    def delete_score(self, session, index):
-        self.sessions[session].pop(index)
-        self.save()
-
-    def dnf_score(self, session, index):
-        self.sessions[session][index]["time"] = 0
-        self.save()
-
-    def calculate_average(self, session, index, n):
-        index = index if index != -1 else len(self.sessions[session])-1
-
-        if index + 1 < n:
-            return -1
-
-        avg = 0
-        dnf = 0
-        for i in range(index, index-n, -1):
-            dnf += (self.sessions[session][i]["time"] == 0)
-            avg += self.sessions[session][i]["time"]
-
-        if dnf > n // 2:
-            return 0
-
-        avg //= (n - dnf)
-        return avg
 
 class Scores(GObject.Object):
     index: int = GObject.Property(type=int)
@@ -161,7 +47,7 @@ class ScoresColumnView(Gtk.Box):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.model = CubeTimerModel()
+        self.model = ScoresModel()
         self.current_session = self.model.get_last_session()
         self.store = Gio.ListStore()
         self.select = Gtk.SingleSelection()
@@ -175,6 +61,8 @@ class ScoresColumnView(Gtk.Box):
         self.build_sessions_menu()
 
         self.load_session(self.current_session)
+
+        self.model.connect("refresh", lambda inst: self.load_scores())
 
     def build_sessions_menu(self):
         def rebuild_drop_down():
@@ -299,7 +187,10 @@ class ScoresColumnView(Gtk.Box):
     def load_session(self, session):
         self.current_session = session
         self.model.set_last_session(session)
-        if self.sessions_drop_down.get_selected_item().name != self.current_session:
+        item = self.sessions_drop_down.get_selected_item()
+        if item is None:
+            return
+        if item.name != self.current_session:
             self.select_current_session()
         else:
             self.load_scores()
@@ -410,7 +301,7 @@ class ScoresColumnView(Gtk.Box):
         GLib.timeout_add(30, lambda: (vadj.set_value(vadj.get_upper()) and False))
 
     def add_score(self, time, scramble):
-        score = {"time": time+1, "scramble": scramble}
+        score = {"time": time, "scramble": scramble}
         self.model.add_score(self.current_session, score)
         self.store.append(Scores(len(self.store)))
         self.select.set_selected(len(self.store)-1)

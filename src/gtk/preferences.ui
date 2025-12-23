@@ -10,12 +10,11 @@
       <object class="AdwPreferencesPage">
         <child>
           <object class="AdwPreferencesGroup">
-            <property name="title" translatable="yes">Solving</property>
+            <property name="title" translatable="yes">Controls</property>
             <child>
               <object class="AdwSwitchRow" id="hold_to_start">
                 <property name="title" translatable="yes">Hold to Start</property>
                 <property name="subtitle" translatable="yes">Hold the spacebar to start the timer</property>
-                <property name="active">true</property>
               </object>
             </child>
             <child>
@@ -28,7 +27,6 @@
               <object class="AdwSwitchRow" id="stop_timer_any_key">
                 <property name="title" translatable="yes">Stop timer with any key</property>
                 <property name="subtitle" translatable="yes">Stop timer with any key not just the spacebar</property>
-                <property name="active">true</property>
               </object>
             </child>
           </object>
@@ -40,7 +38,12 @@
               <object class="AdwSwitchRow" id="zen_mode">
                 <property name="title" translatable="yes">Zen Mode</property>
                 <property name="subtitle" translatable="yes">Hide all elements while solving</property>
-                <property name="active">true</property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwSwitchRow" id="show_mins">
+                <property name="title" translatable="yes">Always show minutes</property>
+                <property name="subtitle" translatable="yes">Always show minutes while solving</property>
               </object>
             </child>
             <child>
@@ -54,6 +57,12 @@
                     <property name="step-increment">1</property>
                   </object>
                 </property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwSwitchRow" id="wca_avg">
+                <property name="title" translatable="yes">WCA Averages</property>
+                <property name="subtitle" translatable="yes">Best and worst solves are not considered</property>
               </object>
             </child>
           </object>

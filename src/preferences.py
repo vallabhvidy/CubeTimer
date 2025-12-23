@@ -10,7 +10,9 @@ class Preferences(Adw.PreferencesDialog):
     wca_inspection = Gtk.Template.Child()
     stop_timer_any_key = Gtk.Template.Child()
     zen_mode = Gtk.Template.Child()
+    show_mins = Gtk.Template.Child()
     precision = Gtk.Template.Child()
+    wca_avg = Gtk.Template.Child()
 
     def __init__(self, **kargs):
         super().__init__(**kargs)
@@ -21,6 +23,8 @@ class Preferences(Adw.PreferencesDialog):
         settings.bind("wca-inspection", self.wca_inspection, "active", Gio.SettingsBindFlags.DEFAULT)
         settings.bind("stop-timer-any-key", self.stop_timer_any_key, "active", Gio.SettingsBindFlags.DEFAULT)
         settings.bind("zen-mode", self.zen_mode, "active", Gio.SettingsBindFlags.DEFAULT)
+        settings.bind("show-mins", self.show_mins, "active", Gio.SettingsBindFlags.DEFAULT)
         settings.bind("precision", self.precision, "value", Gio.SettingsBindFlags.DEFAULT)
+        settings.bind("wca-avg", self.wca_avg, "active", Gio.SettingsBindFlags.DEFAULT)
 
 

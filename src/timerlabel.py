@@ -20,7 +20,7 @@ class CubeTimerLabel(Gtk.Label):
         self.color = "white" if style_manager.get_dark() else "black"
         self.set_colored_label()
 
-    def set_colored_label(self, time=None, color=None):
+    def set_colored_label(self, time=None, color=None, updating=False):
         """
         update label to give time and color.
 
@@ -30,8 +30,9 @@ class CubeTimerLabel(Gtk.Label):
         set by theme.
         """
         color = self.color if color == None else color
-        self.time = time if time is not None else self.time
-        time = time_string(self.time)
+        if time is not None:
+            self.time = time
+        time = time_string(self.time, updating)
         time = time if time != "DNF" else zero_time()
         time_format = _("<span color='{color}'>{time}</span>")
         self.set_markup(time_format.format(

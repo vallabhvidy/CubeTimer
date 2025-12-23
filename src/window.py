@@ -27,7 +27,7 @@ class CubeTimerWindow(Adw.ApplicationWindow):
 
         self.zen_mode = settings.get_boolean("zen-mode")
         settings.connect("changed::zen-mode", self.set_zen_mode)
-        settings.connect("changed::precision", lambda s, k: self.refresh())
+        settings.connect("changed", lambda s, k: self.refresh())
         self.widgets = [
             self.puzzle_dropdown,
             self.scramble,
@@ -68,7 +68,7 @@ class CubeTimerWindow(Adw.ApplicationWindow):
             i.connect("unapply", scramble_change_scale, 1)
 
     def idle(self, inst):
-        self.cube_timer_label.set_colored_label()
+        self.cube_timer_label.set_colored_label(updating=False)
 
     def red(self, inst):
         self.cube_timer_label.set_colored_label(color="red")
@@ -82,11 +82,12 @@ class CubeTimerWindow(Adw.ApplicationWindow):
                 widget.set_visible(False)
 
     def solving(self, inst, time):
-        self.cube_timer_label.set_colored_label(time=time)
+        self.cube_timer_label.set_colored_label(time=time, updating=True)
 
     def solved(self, inst, time):
-        self.scores_column_view.add_score(time, self.scramble.scramble)
         self.scramble.update_scramble()
+        self.cube_timer_label.set_colored_label(time=time, updating=False)
+        self.scores_column_view.add_score(time, self.scramble.scramble)
         if self.zen_mode:
             self.split_view.set_show_sidebar(self.sidebar_state)
             for widget in self.widgets:
@@ -97,5 +98,5 @@ class CubeTimerWindow(Adw.ApplicationWindow):
 
     def refresh(self):
         self.scores_column_view.load_scores()
-        self.cube_timer_label.set_colored_label()
+        self.cube_timer_label.set_colored_label(updating=False)
 
