@@ -40,6 +40,11 @@ class CubeTimerLabel(Gtk.Label):
             time=time
         ))
 
+    def wca_label(self, time=None):
+        time //= 1000
+        time = 15 - time
+        self.set_label(time)
+
     def make_adaptive(self, size):
         # Size is one of 0, 1
 
