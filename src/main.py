@@ -57,7 +57,7 @@ class CubeTimerApplication(Adw.Application):
     def on_preferences_action(self, widget, _):
         """Callback for the app.preferences action."""
         print('app.preferences action activated')
-        pref = Preferences()
+        pref = Preferences(application=self)
         pref.present(self.props.active_window)
 
     def on_view_scores(self, widget, _):

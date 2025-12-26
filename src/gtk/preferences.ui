@@ -10,7 +10,7 @@
       <object class="AdwPreferencesPage">
         <child>
           <object class="AdwPreferencesGroup">
-            <property name="title" translatable="yes">Controls</property>
+            <property name="title" translatable="yes">Timer</property>
             <child>
               <object class="AdwSwitchRow" id="hold_to_start">
                 <property name="title" translatable="yes">Hold to Start</property>
@@ -29,11 +29,17 @@
                 <property name="subtitle" translatable="yes">Stop timer with any key not just the spacebar</property>
               </object>
             </child>
+            <child>
+              <object class="AdwSwitchRow" id="wca_avg">
+                <property name="title" translatable="yes">WCA Averages</property>
+                <property name="subtitle" translatable="yes">Best and worst solves are not considered</property>
+              </object>
+            </child>
           </object>
         </child>
         <child>
           <object class="AdwPreferencesGroup">
-            <property name="title">Appearance</property>
+            <property name="title">Interface</property>
             <child>
               <object class="AdwSwitchRow" id="zen_mode">
                 <property name="title" translatable="yes">Zen Mode</property>
@@ -57,12 +63,6 @@
                     <property name="step-increment">1</property>
                   </object>
                 </property>
-              </object>
-            </child>
-            <child>
-              <object class="AdwSwitchRow" id="wca_avg">
-                <property name="title" translatable="yes">WCA Averages</property>
-                <property name="subtitle" translatable="yes">Best and worst solves are not considered</property>
               </object>
             </child>
           </object>
