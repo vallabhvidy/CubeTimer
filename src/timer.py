@@ -26,12 +26,12 @@ class Timer(GObject.Object):
     def reset_timer(self):
         self.time = 0
 
-    def start_timer(self, inst=None):
+    def start_timer(self):
         self.time_started = time()
         self.running = True
         GLib.timeout_add(1, self.update_timer)
 
-    def update_timer(self, inst=None):
+    def update_timer(self):
         self.time = (time() - self.time_started) // 1000
         # max time 99:59:999
         if self.time < (99 * 60000 + 59 * 1000 + 999):
@@ -43,6 +43,6 @@ class Timer(GObject.Object):
             self.emit("stop")
         return self.running
 
-    def stop_timer(self, inst=None):
+    def stop_timer(self):
         self.running = False
 
