@@ -108,6 +108,12 @@ class ScoresModel(GObject.Object):
         self.sessions[session][index]["time"] = 0
         self.save()
 
+    def p2_score(self, session, index):
+        if self.sessions[session][index]["time"] == 0:
+            return
+        self.sessions[session][index]["time"] += 2_000
+        self.save()
+
     def update_wca_avg(self, settings, key_changed):
         self.wca_avg = settings.get_boolean("wca-avg")
         self.emit("refresh")

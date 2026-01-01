@@ -287,13 +287,15 @@ class ScoresColumnView(Gtk.Box):
                 self.delete_index(self.selected_index)
             elif response == "dnf":
                 self.dnf_index(self.selected_index)
+            elif response == "p2":
+                self.p2_index(self.selected_index)
 
-        self.dialog.add_response("dnf", _("Mark DNF"))
+        self.dialog.add_response("dnf", _("DNF"))
+        self.dialog.add_response("p2", _("+2"))
         self.dialog.add_response("delete", _("Delete"))
         self.dialog.add_response("cancel", _("Cancel"))
 
         self.dialog.set_response_appearance("delete", Adw.ResponseAppearance.DESTRUCTIVE)
-        self.dialog.set_response_appearance("dnf", Adw.ResponseAppearance.SUGGESTED)
         self.dialog.connect('response', on_response)
 
     def scroll_to_bottom(self):
@@ -314,6 +316,10 @@ class ScoresColumnView(Gtk.Box):
 
     def dnf_index(self, index):
         self.model.dnf_score(self.current_session, index)
+        self.load_scores()
+
+    def p2_index(self, index):
+        self.model.p2_score(self.current_session, index)
         self.load_scores()
 
     def load_stats(self):
