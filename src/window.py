@@ -85,13 +85,14 @@ class CubeTimerWindow(Adw.ApplicationWindow):
         self.cube_timer_label.set_colored_label(time=time, updating=True)
 
     def solved(self, inst, time):
-        self.scramble.update_scramble()
         self.cube_timer_label.set_colored_label(time=time, updating=False)
         self.scores_column_view.add_score(time, self.scramble.scramble)
+        self.scramble.update_scramble()
         if self.zen_mode:
             self.split_view.set_show_sidebar(self.sidebar_state)
             for widget in self.widgets:
                 widget.set_visible(True)
+
 
     def set_zen_mode(self, settings, key_changed):
         self.zen_mode = settings.get_boolean("zen-mode")
