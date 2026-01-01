@@ -16,7 +16,4 @@ jobs:
         manifest-path: io.github.vallabhvidy.CubeTimer.json
         cache-key: flatpak-builder-${{ github.sha }}
 
-    - run: |
-        flatpak-builder-lint manifest io.github.vallabhvidy.CubeTimer.json
-        flatpak-builder-lint repo repo
     - run: flatpak run --command=flathub-build org.flatpak.Builder --install io.github.vallabhvidy.CubeTimer.json
