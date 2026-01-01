@@ -67,20 +67,21 @@
     <release version="0.2.0" date="2025-01-01">
       <description translate="no">
         <p>Happy New Year !!!</p>
-        <p>This release adds some preferences and full screen support. The following preferences were added:- </p>
+        <p>This release adds some preferences and full screen support.</p>
+        <p>Preferences added: </p>
         <ul>
-          <li>Hold to start:- Hold 'space' to start the timer</li>
+          <li>Hold to start: Hold 'space' to start the timer</li>
           <li>Stop timer with any key</li>
-          <li>WCA averages:- best and worst solves are ignored while calculating averages</li>
-          <li>Zen Mode:- Hide all elements while solving</li>
+          <li>WCA averages: best and worst solves are ignored while calculating averages</li>
+          <li>Zen Mode: Hide all elements while solving</li>
           <li>Always show minutes</li>
-          <li>Timer precision:- number of digits after decimal point</li>
+          <li>Timer precision: number of digits after decimal point</li>
         </ul>
-        <p>Translations update:-</p>
+        <p>Translations update:</p>
         <ul>
           <li>Brazilian Portuguese (Renato Tavares)</li>
         </ul>
-        <p>This is also the first minor update 0.1 -> 0.2.</p>
+        <p>This is also the first minor update: version 0.2</p>
         <p>Thank you for using the app!</p>
       </description>
     </release>
