@@ -1,6 +1,6 @@
 from gi.repository import Gtk, GLib, GObject, Gio, Adw
 from .utils import time_string
-from .scoresmodel import ScoresModel
+from .scoresmodel import ScoresDB
 import json
 
 class Scores(GObject.Object):
@@ -47,7 +47,7 @@ class ScoresColumnView(Gtk.Box):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.model = ScoresModel()
+        self.model = ScoresDB()
         self.current_session = self.model.get_last_session()
         self.store = Gio.ListStore()
         self.select = Gtk.SingleSelection()
@@ -158,8 +158,8 @@ class ScoresColumnView(Gtk.Box):
 
     def build_drop_down(self):
         def on_selected_item(dropdown, selected):
-            selected_item = self.sessions_drop_down.get_selected_item()
-            if selected_item == None:
+            selected_item = dropdown.get_selected_item()
+            if selected_item is None:
                 return
             self.load_session(selected_item.name)
 
@@ -187,13 +187,15 @@ class ScoresColumnView(Gtk.Box):
     def load_session(self, session):
         self.current_session = session
         self.model.set_last_session(session)
-        item = self.sessions_drop_down.get_selected_item()
-        if item is None:
-            return
-        if item.name != self.current_session:
-            self.select_current_session()
-        else:
-            self.load_scores()
+        self.select_current_session()
+        self.load_scores()
+        # item = self.sessions_drop_down.get_selected_item()
+        # if item is None:
+        #     return
+        # if item.name != self.current_session:
+        #     self.select_current_session()
+        # else:
+        #     self.load_scores()
 
     def select_current_session(self):
         for idx in range(len(self.sessions_store)):

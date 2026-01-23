@@ -15,4 +15,3 @@ jobs:
         bundle: palette.flatpak
         manifest-path: io.github.vallabhvidy.CubeTimer.json
         cache-key: flatpak-builder-${{ github.sha }}
-
