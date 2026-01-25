@@ -6,6 +6,7 @@ import sqlite3
 
 db_path = data_dir / 'scores.db'
 
+# deprecated
 class ScoresModel(GObject.Object):
     @GObject.Signal
     def refresh(self):
@@ -193,12 +194,23 @@ class ScoresDB(GObject.Object):
                         on delete cascade
                 )
             """)
-            # insert a default session called 'Session 1'
+            # https://www.sqlitetutorial.net/sqlite-index/
+            # create index on session
             self.c.execute("""
-                insert into sessions (name)
-                values ('Session 1')
+                create index if not exists session_idx
+                on scores(session_id)
             """)
-            self.set_last_session('Session 1')
+            # insert a default session called 'Session 1'
+            # and set it as the last session
+            # if no sessions are found
+            default_session = _("Session 1")
+            if self.c.execute("select 1 from sessions limit 1").fetchone() is None:
+                self.c.execute("""
+                    insert into sessions (name)
+                    values (?)
+                """, (default_session,))
+                self.set_last_session(default_session)
+
             # https://www.sqlitetutorial.net/sqlite-window-functions/sqlite-row_number/
             # https://www.sqlitetutorial.net/sqlite-create-view/
             # create view
@@ -209,7 +221,7 @@ class ScoresDB(GObject.Object):
                     row_number() over (
                         partition by a.session_id
                         order by a.score_id
-                    ) as score_index,
+                    ) - 1 as score_index,
                     a.score_id as score_id,
                     a.time as time,
                     a.scramble as scramble,
@@ -247,21 +259,28 @@ class ScoresDB(GObject.Object):
     def list_of_dictionary(self, list_of_tuples) -> list[dict]:
         return [ { "time": e[0], "scramble": e[1] } for e in list_of_tuples ]
 
+    def get_latest_score_index(self, session):
+        res = self.c.execute("""
+            select score_index
+            from score_session
+            where session=?
+            order by score_index desc
+            limit 1
+        """, (session,))
+
+        return res.fetchone()[0]
+
     def get_score(self, session, index):
         if index == -1:
-            res = self.c.execute("""
-                select max(score_index) from score_session
-                where session=?
-            """, (session,))
-            index = res.fetchone()[0] - 1
+            index = self.get_latest_score_index(session)
+
+        print(index)
 
         res = self.c.execute("""
             select time, scramble
             from score_session
             where score_index=? and session=?
-        """, (index+1, session,))
-
-        print(index)
+        """, (index, session,))
 
         score = res.fetchone()
 
@@ -321,7 +340,11 @@ class ScoresDB(GObject.Object):
         self.save()
 
     def delete_score(self, session, index):
-        res = self.c.execute("select score_id from score_session where session=? and score_index=?", (session, index,))
+        res = self.c.execute("""
+            select score_id
+            from score_session
+            where session=? and score_index=?
+        """, (session, index,))
         score_id = res.fetchone()[0]
         self.c.execute("""
             delete from scores
@@ -330,7 +353,11 @@ class ScoresDB(GObject.Object):
         self.save()
 
     def dnf_score(self, session, index):
-        res = self.c.execute("select score_id from score_session where session=? and score_index=?", (session, index,))
+        res = self.c.execute("""
+            select score_id
+            from score_session
+            where session=? and score_index=?
+        """, (session, index,))
         score_id = res.fetchone()[0]
         self.c.execute("""
             update scores
@@ -356,13 +383,16 @@ class ScoresDB(GObject.Object):
         # sort all scores in descending
         # then limit till n
 
+        if index == -1:
+            index = self.get_latest_score_index(session)
+
         res = self.c.execute("""
             select time
             from score_session
             where session=? and score_index<=?
             order by score_index desc
             limit ?
-        """, (session, index+1, limit))
+        """, (session, index, limit))
 
         times = [ time[0] for time in res.fetchall() ]
         dnf = sum([ int(time==0) for time in times ])
@@ -390,21 +420,3 @@ class ScoresDB(GObject.Object):
         tot = sum(times)
 
         return tot // len(times)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

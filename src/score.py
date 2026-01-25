@@ -1,4 +1,5 @@
 from gi.repository import Gtk, GLib, GObject, Gio, Adw
+from collections import deque
 from .utils import time_string
 from .scoresmodel import ScoresDB
 import json
@@ -161,6 +162,8 @@ class ScoresColumnView(Gtk.Box):
             selected_item = dropdown.get_selected_item()
             if selected_item is None:
                 return
+            if selected_item.name == self.current_session:
+                return
             self.load_session(selected_item.name)
 
         fact = Gtk.SignalListItemFactory()
@@ -299,8 +302,11 @@ class ScoresColumnView(Gtk.Box):
         self.dialog.connect('response', on_response)
 
     def scroll_to_bottom(self):
-        vadj = self.scrolled_window.get_vadjustment()
-        GLib.timeout_add(30, lambda: (vadj.set_value(vadj.get_upper()) and False))
+        def scroll():
+            vadj = self.scrolled_window.get_vadjustment()
+            vadj.set_value(vadj.get_upper())
+            return False
+        GLib.timeout_add(30, scroll)
 
     def add_score(self, time, scramble):
         score = {"time": time, "scramble": scramble}
@@ -355,6 +361,12 @@ class ScoresColumnView(Gtk.Box):
     def load_scores(self):
         session = self.current_session
         scores = self.model.get_session(session)
+
+        dq5 = deque()
+        dq12 = deque()
+
+
+
         self.store.remove_all()
 
         labels = (
@@ -367,6 +379,7 @@ class ScoresColumnView(Gtk.Box):
             self.best_ao5,
             self.best_ao12
         )
+
         for i in labels:
             i.set_label("-")
 
@@ -395,4 +408,5 @@ class ScoresColumnView(Gtk.Box):
             self.store.append(Scores(idx))
 
         self.load_stats()
+        self.scroll_to_bottom()
 
