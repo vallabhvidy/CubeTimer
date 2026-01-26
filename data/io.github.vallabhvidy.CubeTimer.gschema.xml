@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- https://docs.gtk.org/gio/class.Settings.html -->
 <schemalist gettext-domain="cube-timer">
 	<schema id="io.github.vallabhvidy.CubeTimer" path="/io/github/vallabhvidy/CubeTimer/">
     <key name="hold-to-start" type="b">
@@ -28,6 +29,10 @@
 	  <key name="precision" type="i">
       <default>2</default>
       <description>Number of digits after decimal point</description>
+    </key>
+    <key name="last-session" type="s">
+      <default>''</default>
+      <description>Session when the app was last closed</description>
     </key>
 	</schema>
 </schemalist>

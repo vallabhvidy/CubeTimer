@@ -1,4 +1,5 @@
 from gi.repository import GLib, GObject
+from .utils import MAX_TIME
 
 time = GLib.get_monotonic_time
 
@@ -34,7 +35,7 @@ class Timer(GObject.Object):
     def update_timer(self, inst=None):
         self.time = (time() - self.time_started) // 1000
         # max time 99:59:999
-        if self.time < (99 * 60000 + 59 * 1000 + 999):
+        if self.time < MAX_TIME:
             self.emit("update")
         else:
             self.stop_timer()

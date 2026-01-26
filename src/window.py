@@ -98,6 +98,6 @@ class CubeTimerWindow(Adw.ApplicationWindow):
         self.zen_mode = settings.get_boolean("zen-mode")
 
     def refresh(self):
-        self.scores_column_view.load_scores()
+        self.scores_column_view.reload_scores()
         self.cube_timer_label.set_colored_label(updating=False)
 
