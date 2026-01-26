@@ -559,4 +559,6 @@ class ScoresColumnView(Gtk.Box):
 
         self.store.splice(0, self.store.get_n_items(), new_scores)
 
+        self.scroll_to_top()
+
         self.reload_stats()

@@ -134,9 +134,25 @@ class ScoresDB(GObject.Object):
                 for session in sessions:
                     if session == "last-session" or session == "version":
                         continue
-                    self.add_session(session)
+                    self.c.execute("""
+                        insert into sessions (name)
+                        values (?)
+                    """, (session,))
+                    res = self.c.execute("""
+                        select session_id
+                        from sessions
+                        where name=?
+                    """, (session,))
+                    session_id = res.fetchone()[0]
                     for score in sessions[session]:
-                        self.add_score(session, modscore(score, version))
+                        score = modscore(score, version)
+                        time = score["time"]
+                        scramble = score["scramble"]
+                        self.c.execute("""
+                            insert into scores (session_id, time, scramble)
+                            values (?, ?, ?)
+                        """, (session_id, time, scramble,))
+                self.save()
 
         except FileNotFoundError:
             return
@@ -156,6 +172,7 @@ class ScoresDB(GObject.Object):
             select time, scramble
             from score_session
             where session=?
+            order by score_index asc
         """, (session,))
 
         times = res.fetchall()
@@ -298,7 +315,7 @@ class ScoresDB(GObject.Object):
         """, (session, index, limit))
 
         times = [ time[0] for time in res.fetchall() ]
-        dnf = sum([ int(time==0) for time in times ])
+        dnf = times.count(0)
 
         if len(times) < limit:
             return -1
