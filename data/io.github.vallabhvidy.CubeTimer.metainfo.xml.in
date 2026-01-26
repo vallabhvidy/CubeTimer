@@ -64,7 +64,17 @@
     <control>keyboard</control>
   </supports>
   <releases>
-    <release version="0.2.0" date="2025-01-01">
+    <release version="0.2.1" date="2026-01-26">
+      <description translate="no">
+        <ul>
+          <li>Moved from JSON to SQLite, which improves performance and reduces memory usage.</li>
+          <li>Recent solves are now shown first in the sidebar.</li>
+          <li>Recently accessed sessions are cached for faster access.</li>
+          <li>Minor bug fixes.</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.2.0" date="2026-01-01">
       <description translate="no">
         <p>Happy New Year !!!</p>
         <p>This release adds some preferences and full screen support.</p>

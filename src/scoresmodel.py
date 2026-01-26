@@ -144,14 +144,16 @@ class ScoresDB(GObject.Object):
                         where name=?
                     """, (session,))
                     session_id = res.fetchone()[0]
+                    rows = []
                     for score in sessions[session]:
                         score = modscore(score, version)
                         time = score["time"]
                         scramble = score["scramble"]
-                        self.c.execute("""
-                            insert into scores (session_id, time, scramble)
-                            values (?, ?, ?)
-                        """, (session_id, time, scramble,))
+                        rows.append((session_id, time, scramble,))
+                    self.c.executemany("""
+                        insert into scores (session_id, time, scramble)
+                        values (?, ?, ?)
+                    """, rows)
                 self.save()
 
         except FileNotFoundError:
