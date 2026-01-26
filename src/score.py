@@ -1,15 +1,25 @@
 from gi.repository import Gtk, GLib, GObject, Gio, Adw
 from collections import deque
-from .utils import time_string
-from .scoresmodel import ScoresDB
+from .preferences import settings
+from .utils import time_string, MAX_TIME
+from .scoresmodel import ScoresDB, ScoresModel
+from .lrucache import LRUCache
 import json
 
 class Scores(GObject.Object):
     index: int = GObject.Property(type=int)
+    time_ms: int = GObject.Property(type=int)
+    mo3: int = GObject.Property(type=int)
+    ao5: int = GObject.Property(type=int)
+    ao12: int = GObject.Property(type=int)
 
-    def __init__(self, index: int):
+    def __init__(self, index: int, time_ms: int = -1, mo3: int = -1, ao5: int = -1, ao12: int = -1):
         super().__init__()
         self.index = index
+        self.time_ms = time_ms
+        self.mo3 = mo3
+        self.ao5 = ao5
+        self.ao12 = ao12
 
 class Session(GObject.Object):
     name: str = GObject.Property(type=str)
@@ -45,14 +55,24 @@ class ScoresColumnView(Gtk.Box):
     remove_session_button = Gtk.Template.Child()
     remove_session_dialog = Gtk.Template.Child()
 
+    @GObject.Signal
+    def refresh(self):
+        pass
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
         self.model = ScoresDB()
         self.current_session = self.model.get_last_session()
         self.store = Gio.ListStore()
+        self.sort_model = Gtk.SortListModel()
         self.select = Gtk.SingleSelection()
+        self.scores = []
         self.selected_index = 0
+        self.cache = LRUCache(5)
+
+        self.wca_avg = settings.get_boolean("wca-avg")
+        settings.connect("changed::wca-avg", self.update_wca_avg)
 
         self.sessions_store = Gio.ListStore()
 
@@ -61,9 +81,21 @@ class ScoresColumnView(Gtk.Box):
         self.build_dialog()
         self.build_sessions_menu()
 
-        self.load_session(self.current_session)
+        self.time_ms = 0
+        self.dq3 = deque(maxlen=3)
+        self.dq5 = deque(maxlen=5)
+        self.dq12 = deque(maxlen=12)
 
-        self.model.connect("refresh", lambda inst: self.load_scores())
+        self.load_session(self.current_session)
+        self.select.set_selected(0)
+        self.scroll_to_top()
+
+        self.model.connect("refresh", lambda inst: self.reload_scores())
+
+    def update_wca_avg(self, settings, key_changed):
+        self.wca_avg = settings.get_boolean("wca-avg")
+        self.emit("refresh")
+        self.reload_scores()
 
     def build_sessions_menu(self):
         def rebuild_drop_down():
@@ -188,17 +220,12 @@ class ScoresColumnView(Gtk.Box):
         self.sessions_drop_down.connect("notify::selected-item", on_selected_item)
 
     def load_session(self, session):
+        if self.scores:
+            self.cache.put(self.current_session, list(self.scores))
         self.current_session = session
         self.model.set_last_session(session)
         self.select_current_session()
-        self.load_scores()
-        # item = self.sessions_drop_down.get_selected_item()
-        # if item is None:
-        #     return
-        # if item.name != self.current_session:
-        #     self.select_current_session()
-        # else:
-        #     self.load_scores()
+        self.reload_scores(session)
 
     def select_current_session(self):
         for idx in range(len(self.sessions_store)):
@@ -208,7 +235,8 @@ class ScoresColumnView(Gtk.Box):
 
     def build_column_view(self):
         def on_click(widget, index):
-            item = self.model.get_score(self.current_session, index)
+            index = self.store.get_n_items() - 1 - index
+            item = self.scores[index]
             self.selected_index = index
 
             time = time_string(item['time'])
@@ -221,7 +249,10 @@ class ScoresColumnView(Gtk.Box):
 
             self.dialog.present(self)
 
-        self.select.set_model(self.store)
+        sorter = Gtk.CustomSorter.new(lambda a, b, _ : b.index - a.index)
+        self.sort_model.set_sorter(sorter)
+        self.sort_model.set_model(self.store)
+        self.select.set_model(self.sort_model)
         self.scores_column_view.set_model(self.select)
 
         fact1 = Gtk.SignalListItemFactory()
@@ -243,11 +274,11 @@ class ScoresColumnView(Gtk.Box):
             item.get_child().set_label(str(item.get_item().index+1))
 
         def f_bind2(fact, item):
-            score = self.model.get_score(self.current_session, item.get_item().index)
-            item.get_child().set_label(time_string(score["time"]))
+            time_ms = item.get_item().time_ms
+            item.get_child().set_label(time_string(time_ms))
 
         def f_bind3(fact, item):
-            ao5 = time_string(self.model.calculate_average(self.current_session, item.get_item().index, 5))
+            ao5 = time_string(item.get_item().ao5)
             item_child = item.get_child()
             item_child.set_label(ao5)
             if ao5 == "-":
@@ -256,7 +287,7 @@ class ScoresColumnView(Gtk.Box):
                 item_child.remove_css_class("dim-label")
 
         def f_bind4(fact, item):
-            ao12 = time_string(self.model.calculate_average(self.current_session, item.get_item().index, 12))
+            ao12 = time_string(item.get_item().ao12)
             item_child = item.get_child()
             item_child.set_label(ao12)
             if ao12 == "-":
@@ -301,39 +332,105 @@ class ScoresColumnView(Gtk.Box):
         self.dialog.set_response_appearance("dnf", Adw.ResponseAppearance.SUGGESTED)
         self.dialog.connect('response', on_response)
 
+    def scroll_to_top(self):
+        def scroll():
+            vadj = self.scrolled_window.get_vadjustment()
+            vadj.set_value(vadj.get_lower())
+            return False
+        GLib.idle_add(scroll)
+
     def scroll_to_bottom(self):
         def scroll():
             vadj = self.scrolled_window.get_vadjustment()
             vadj.set_value(vadj.get_upper())
             return False
-        GLib.timeout_add(30, scroll)
+        GLib.idle_add(scroll)
+
+    def update_averages(self, new_time_ms: int = 0, new: bool = True):
+        """
+        calculate and return the new
+        mo3, ao5, ao12
+        wca averages ignore the best and worst solves while
+        calculating average.
+        if there are more than 1 dnf then the entire average
+        is dnf.
+        """
+        if new:
+            self.dq3.append(new_time_ms)
+            self.dq5.append(new_time_ms)
+            self.dq12.append(new_time_ms)
+
+        dnf3 = self.dq3.count(0)
+        dnf5 = self.dq5.count(0)
+        dnf12 = self.dq12.count(0)
+
+        mo3, ao5, ao12 = 0, 0, 0
+
+        if len(self.dq3) < 3:
+            mo3 = -1
+        elif dnf3 > 0:
+            mo3 = 0
+        else:
+            mo3 = sum(self.dq3) // 3
+
+        if len(self.dq5) < 5:
+            ao5 = -1
+        elif dnf5 > 1:
+            ao5 = 0
+        elif self.wca_avg:
+            times = list(self.dq5)
+            if dnf5 == 1:
+                times.remove(0)
+            else:
+                times.remove(max(times))
+            times.remove(min(times))
+            ao5 = sum(times) // len(times)
+        else:
+            ao5 = sum(self.dq5) // 5
+
+        if len(self.dq12) < 12:
+            ao12 = -1
+        elif dnf12 > 1:
+            ao12 = 0
+        elif self.wca_avg:
+            times = list(self.dq12)
+            if dnf12 == 1:
+                times.remove(0)
+            else:
+                times.remove(max(times))
+            times.remove(min(times))
+            ao12 = sum(times) // len(times)
+        else:
+            ao12 = sum(self.dq12) // 12
+
+        return mo3, ao5, ao12
 
     def add_score(self, time, scramble):
         score = {"time": time, "scramble": scramble}
         self.model.add_score(self.current_session, score)
-        self.store.append(Scores(len(self.store)))
-        self.select.set_selected(len(self.store)-1)
-        self.scroll_to_bottom()
+        idx = self.store.get_n_items()
+        self.time_ms = time
+        mo3, ao5, ao12 = self.update_averages(time)
+
+        self.scores.append(score)
+        self.store.append(Scores(idx, time, mo3, ao5, ao12))
+        self.select.set_selected(0)
+        self.scroll_to_top()
         self.load_stats()
 
     def delete_index(self, index):
         self.model.delete_score(self.current_session, index)
-        self.load_scores()
+        self.scores.pop(index)
+        self.reload_scores_from_index(index)
 
     def dnf_index(self, index):
         self.model.dnf_score(self.current_session, index)
-        self.load_scores()
+        self.scores[index]["time"] = 0
+        self.reload_scores_from_index(index)
 
     def load_stats(self):
-        sessions = self.model.get_session(self.current_session)
-
-        if len(sessions) == 0:
-            return
-
-        time = self.model.get_score(self.current_session, -1)["time"]
-        mo3 = self.model.calculate_average(self.current_session, -1, 3)
-        ao5 = self.model.calculate_average(self.current_session, -1, 5)
-        ao12 = self.model.calculate_average(self.current_session, -1, 12)
+        time = self.time_ms
+        mo3, ao5, ao12 = self.update_averages(new=False)
 
         self.current_time.set_label(time_string(time))
         self.current_mo3.set_label(time_string(mo3))
@@ -357,17 +454,32 @@ class ScoresColumnView(Gtk.Box):
         self.best_ao5.set_label(time_string(self.min_ao5))
         self.best_ao12.set_label(time_string(self.min_ao12))
 
+    def reload_stats(self):
+        self.min_time = -1
+        self.min_mo3 = -1
+        self.min_ao5 = -1
+        self.min_ao12 = -1
+        self.time_ms = -1
 
-    def load_scores(self):
-        session = self.current_session
-        scores = self.model.get_session(session)
+        self.dq3.clear()
+        self.dq5.clear()
+        self.dq12.clear()
 
-        dq5 = deque()
-        dq12 = deque()
+        for i in range(len(self.scores)):
+            time = self.scores[i]["time"]
+            self.time_ms = time
+            mo3, ao5, ao12 = self.update_averages(time)
+            if time > 0:
+                self.min_time = min(self.min_time, time) if self.min_time > 0 else time
 
+            if mo3 > 0:
+                self.min_mo3 = min(self.min_mo3, mo3) if self.min_mo3 > 0 else mo3
 
+            if ao5 > 0:
+                self.min_ao5 = min(self.min_ao5, ao5) if self.min_ao5 > 0 else ao5
 
-        self.store.remove_all()
+            if ao12 > 0:
+                self.min_ao12 = min(self.min_ao12, ao12) if self.min_ao12 > 0 else ao12
 
         labels = (
             self.current_time,
@@ -383,30 +495,68 @@ class ScoresColumnView(Gtk.Box):
         for i in labels:
             i.set_label("-")
 
+        time = self.time_ms
+        mo3, ao5, ao12 = self.update_averages(new=False)
+
+        self.current_time.set_label(time_string(time))
+        self.current_mo3.set_label(time_string(mo3))
+        self.current_ao5.set_label(time_string(ao5))
+        self.current_ao12.set_label(time_string(ao12))
+
+        self.best_time.set_label(time_string(self.min_time))
+        self.best_mo3.set_label(time_string(self.min_mo3))
+        self.best_ao5.set_label(time_string(self.min_ao5))
+        self.best_ao12.set_label(time_string(self.min_ao12))
+
+    def reload_scores_from_index(self, start: int):
+        new_scores = []
+
+        self.dq3.clear()
+        self.dq5.clear()
+        self.dq12.clear()
+
+        for i in range(max(0, start-2), start):
+            self.dq3.append(self.scores[i]["time"])
+        for i in range(max(0, start-4), start):
+            self.dq5.append(self.scores[i]["time"])
+        for i in range(max(0, start-11), start):
+            self.dq12.append(self.scores[i]["time"])
+
+        for i in range(start, len(self.scores)):
+            mo3, ao5, ao12 = self.update_averages(self.scores[i]["time"])
+            new_scores.append(Scores(i, self.scores[i]["time"], mo3, ao5, ao12))
+
+        self.time_ms = self.scores[-1]["time"] if len(self.scores) > 0 else -1
+        self.reload_stats()
+
+        self.store.splice(start, self.store.get_n_items() - start, new_scores)
+
+    def reload_scores(self, session = None):
+        if session is not None:
+            cache = self.cache.get(session)
+            if not cache:
+                self.scores = self.model.get_session(session)
+            else:
+                self.scores = list(cache)
+
         self.min_time = -1
         self.min_mo3 = -1
         self.min_ao5 = -1
         self.min_ao12 = -1
+        self.time_ms = -1
 
-        for idx in range(len(scores)):
-            time = self.model.get_score(session, idx)["time"]
-            if time > 0:
-                self.min_time = time if self.min_time == -1 else min(time, self.min_time)
+        self.dq3.clear()
+        self.dq5.clear()
+        self.dq12.clear()
 
-            mo3 = self.model.calculate_average(session, idx, 3)
-            if mo3 > 0:
-                self.min_mo3 = mo3 if self.min_mo3 == -1 else min(mo3, self.min_mo3)
+        new_scores = []
 
-            ao5 = self.model.calculate_average(session, idx, 5)
-            if ao5 > 0:
-                self.min_ao5 = ao5 if self.min_ao5 == -1 else min(ao5, self.min_ao5)
+        for i in range(len(self.scores)):
+            time = self.scores[i]["time"]
+            self.time_ms = time
+            mo3, ao5, ao12 = self.update_averages(time)
+            new_scores.append(Scores(i, time, mo3, ao5, ao12))
 
-            ao12 = self.model.calculate_average(session, idx, 12)
-            if ao12 > 0:
-                self.min_ao12 = ao12 if self.min_ao12 == -1 else min(ao12, self.min_ao12)
+        self.store.splice(0, self.store.get_n_items(), new_scores)
 
-            self.store.append(Scores(idx))
-
-        self.load_stats()
-        self.scroll_to_bottom()
-
+        self.reload_stats()
