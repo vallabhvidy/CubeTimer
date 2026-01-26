@@ -2,7 +2,7 @@ from gi.repository import Gtk, GLib, GObject, Gio, Adw
 from collections import deque
 from .preferences import settings
 from .utils import time_string, MAX_TIME
-from .scoresmodel import ScoresDB, ScoresModel
+from .scoresmodel import ScoresDB
 from .lrucache import LRUCache
 import json
 

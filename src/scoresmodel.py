@@ -272,6 +272,7 @@ class ScoresDB(GObject.Object):
         """, (score_id,))
         self.save()
 
+    # deprecated (directly handled via cache)
     def calculate_average(self, session, index, limit):
         """
         calculate the average of last n solves from index.
