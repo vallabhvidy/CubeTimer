@@ -64,6 +64,13 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.2.2" date="2026-06-13">
+      <description translate="no">
+        <ul>
+          <li>GNOME runtime version update.</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.2.1" date="2026-01-26">
       <description translate="no">
         <ul>
