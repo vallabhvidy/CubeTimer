@@ -7,3 +7,5 @@ repo
 *.po~
 *.db
 data/.flatpak-builder/
+__pycache__/
+*.py[cod]

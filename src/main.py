@@ -12,10 +12,11 @@ from .utils import db_path
 class CubeTimerApplication(Adw.Application):
     """The main application singleton class."""
 
-    def __init__(self):
+    def __init__(self, version="unknown"):
         super().__init__(application_id='io.github.vallabhvidy.CubeTimer',
                          flags=Gio.ApplicationFlags.DEFAULT_FLAGS,
                          resource_base_path='/io/github/vallabhvidy/CubeTimer/')
+        self.version = version
 
         self.create_action('quit', lambda *_: self.quit(), ['<primary>q'])
         self.create_action('about', self.on_about_action)
@@ -40,7 +41,7 @@ class CubeTimerApplication(Adw.Application):
             "Vallabh Vidyasagar https://github.com/vallabhvidy",
             "Pixelo789 https://codeberg.org/Pixelo789"
         ]
-        about = Adw.AboutDialog.new_from_appdata("io/github/vallabhvidy/CubeTimer/metainfo.xml", "0.2.1")
+        about = Adw.AboutDialog.new_from_appdata("io/github/vallabhvidy/CubeTimer/metainfo.xml", self.version)
         about.set_developers(developers)
         # Translators: Replace "translator-credits" with your names, one name per line
         about.set_translator_credits(_("translator-credits"))
@@ -87,5 +88,5 @@ class CubeTimerApplication(Adw.Application):
 
 def main(version):
     """The application's entry point."""
-    app = CubeTimerApplication()
+    app = CubeTimerApplication(version)
     return app.run(sys.argv)
