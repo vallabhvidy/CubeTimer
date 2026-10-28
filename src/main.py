@@ -7,7 +7,7 @@ gi.require_version('Adw', '1')
 from gi.repository import Gtk, Gio, Adw, Gdk
 from .window import CubeTimerWindow
 from .preferences import Preferences
-from .utils import scores_file_path
+from .utils import db_path
 
 class CubeTimerApplication(Adw.Application):
     """The main application singleton class."""
@@ -61,7 +61,7 @@ class CubeTimerApplication(Adw.Application):
         pref.present(self.props.active_window)
 
     def on_view_scores(self, widget, _):
-        file = Gio.File.new_for_path(str(scores_file_path))
+        file = Gio.File.new_for_path(str(db_path))
         file_launcher = Gtk.FileLauncher(
             always_ask=True,
             file=file,

@@ -1,10 +1,9 @@
 from gi.repository import GObject
 from .preferences import settings
-from .utils import scores_file_path, data_dir
+from .utils import scores_file_path, db_path
 import json
 import sqlite3
 
-db_path = data_dir / 'scores.db'
 json_path = scores_file_path
 
 class ScoresDB(GObject.Object):

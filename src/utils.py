@@ -9,6 +9,7 @@ MAX_TIME = 99 * 60000 + 59 * 1000 + 999
 data_dir = Path(os.getenv('XDG_DATA_HOME', Path.home() / '.local/share')) / 'flatpak' / 'apps' / 'cube-timer' / 'CubeTimer'
 data_dir.mkdir(parents=True, exist_ok=True)
 scores_file_path = data_dir / 'scores.json'
+db_path = data_dir / 'scores.db'
 precision = settings.get_int("precision")
 show_mins = settings.get_boolean("show-mins")
 def update(settings, key_changed):
