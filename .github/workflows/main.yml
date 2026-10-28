@@ -12,6 +12,6 @@ jobs:
     - uses: actions/checkout@v4
     - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
       with:
-        bundle: palette.flatpak
+        bundle: cube-timer.flatpak
         manifest-path: io.github.vallabhvidy.CubeTimer.json
         cache-key: flatpak-builder-${{ github.sha }}
