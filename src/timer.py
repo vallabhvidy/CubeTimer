@@ -30,7 +30,7 @@ class Timer(GObject.Object):
     def start_timer(self, inst=None):
         self.time_started = time()
         self.running = True
-        GLib.timeout_add(1, self.update_timer)
+        GLib.timeout_add(33, self.update_timer)
 
     def update_timer(self, inst=None):
         self.time = (time() - self.time_started) // 1000
