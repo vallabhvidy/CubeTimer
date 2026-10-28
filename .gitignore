@@ -5,3 +5,5 @@ builddir
 repo
 *~
 *.po~
+*.db
+data/.flatpak-builder/
