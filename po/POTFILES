@@ -9,3 +9,5 @@ src/gtk/window.ui
 src/gtk/score.ui
 src/gtk/timerlabel.ui
 src/main.py
+src/gtk/preferences.ui
+src/scoresmodel.py

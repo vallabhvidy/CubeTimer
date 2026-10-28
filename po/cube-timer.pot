@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the cube-timer package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: cube-timer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-23 19:02+0530\n"
+"POT-Creation-Date: 2026-10-28 08:10+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,32 +96,39 @@ msgstr ""
 msgid "Light Mode"
 msgstr ""
 
-#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:6
+#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:7
 msgid "Hold to start"
 msgstr ""
 
-#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:10
+#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:11
 msgid "Enable WCA inspection"
 msgstr ""
 
-#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:14
+#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:15
 msgid "Stop the timer with any key"
 msgstr ""
 
-#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:18
+#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:19
 msgid "Use WCA rules to calculate averages"
 msgstr ""
 
-#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:22
+#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:23
+#: src/gtk/preferences.ui:46
 msgid "Hide all elements while solving"
 msgstr ""
 
-#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:26
+#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:27
+#: src/gtk/preferences.ui:52
 msgid "Always show minutes while solving"
 msgstr ""
 
-#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:30
+#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:31
+#: src/gtk/preferences.ui:58
 msgid "Number of digits after decimal point"
+msgstr ""
+
+#: data/io.github.vallabhvidy.CubeTimer.gschema.xml:35
+msgid "Session when the app was last closed"
 msgstr ""
 
 #: src/gtk/shortcuts-dialog.ui:6
@@ -149,16 +156,20 @@ msgctxt "shortcut window"
 msgid "Quit"
 msgstr ""
 
-#: src/score.py:81 src/score.py:83
+#. insert a default session called 'Session 1'
+#. and set it as the last session
+#. if no sessions are found
+#: src/score.py:114 src/score.py:116 src/scoresmodel.py:88
+#: src/scoresmodel.py:133
 msgid "Session 1"
 msgstr ""
 
-#: src/score.py:136
+#: src/score.py:169
 #, python-brace-format
 msgid "Delete {session}?"
 msgstr ""
 
-#: src/score.py:211
+#: src/score.py:244
 #, python-brace-format
 msgid ""
 "Scramble:- {scramble}\n"
@@ -166,36 +177,36 @@ msgid ""
 "Time:- {time}"
 msgstr ""
 
-#: src/score.py:213
+#: src/score.py:246
 #, python-brace-format
 msgid "Solve No. {idx}"
 msgstr ""
 
-#: src/score.py:267
+#: src/score.py:303
 msgid "Sr."
 msgstr ""
 
-#: src/score.py:268 src/gtk/score.ui:78 src/gtk/score.ui:211
+#: src/score.py:304 src/gtk/score.ui:78 src/gtk/score.ui:211
 msgid "Time"
 msgstr ""
 
-#: src/score.py:269 src/gtk/score.ui:100
+#: src/score.py:305 src/gtk/score.ui:100
 msgid "ao5"
 msgstr ""
 
-#: src/score.py:270 src/gtk/score.ui:111
+#: src/score.py:306 src/gtk/score.ui:111
 msgid "ao12"
 msgstr ""
 
-#: src/score.py:291
+#: src/score.py:327
 msgid "Mark DNF"
 msgstr ""
 
-#: src/score.py:292
+#: src/score.py:328
 msgid "Delete"
 msgstr ""
 
-#: src/score.py:293
+#: src/score.py:329
 msgid "Cancel"
 msgstr ""
 
@@ -291,6 +302,59 @@ msgstr ""
 msgid "_Rename"
 msgstr ""
 
+#. Translators: Replace "translator-credits" with your names, one name per line
 #: src/main.py:46
 msgid "translator-credits"
+msgstr ""
+
+#: src/gtk/preferences.ui:8
+msgid "Preferences"
+msgstr ""
+
+#: src/gtk/preferences.ui:13
+msgid "Timer"
+msgstr ""
+
+#: src/gtk/preferences.ui:16
+msgid "Hold to Start"
+msgstr ""
+
+#: src/gtk/preferences.ui:17
+msgid "Hold the spacebar to start the timer"
+msgstr ""
+
+#: src/gtk/preferences.ui:22
+msgid "WCA Inspection"
+msgstr ""
+
+#: src/gtk/preferences.ui:23
+msgid "15-seconds period to inspect the puzzle"
+msgstr ""
+
+#: src/gtk/preferences.ui:28
+msgid "Stop timer with any key"
+msgstr ""
+
+#: src/gtk/preferences.ui:29
+msgid "Stop timer with any key not just the spacebar"
+msgstr ""
+
+#: src/gtk/preferences.ui:34
+msgid "WCA Averages"
+msgstr ""
+
+#: src/gtk/preferences.ui:35
+msgid "Best and worst solves are not considered"
+msgstr ""
+
+#: src/gtk/preferences.ui:45
+msgid "Zen Mode"
+msgstr ""
+
+#: src/gtk/preferences.ui:51
+msgid "Always show minutes"
+msgstr ""
+
+#: src/gtk/preferences.ui:57
+msgid "Timer Precision"
 msgstr ""
