@@ -4,7 +4,7 @@ from .timer import Timer
 from .preferences import settings
 
 time = GLib.get_monotonic_time
-delay = 0.20
+delay = 300
 
 class TimerController(GObject.Object):
     __gtype_name__ = "TimeController"
@@ -50,10 +50,20 @@ class TimerController(GObject.Object):
         # 3 - running
         self.state = 0
 
+        self.held_id = None
+
     def update_settings(self, settings, key_changed):
         self.hold = settings.get_boolean("hold-to-start")
         self.wca = settings.get_boolean("wca-inspection")
         self.any_key = settings.get_boolean("stop-timer-any-key")
+
+    def hold_timeout(self):
+        self.held_id = None
+        if self.state == 1:
+            self.emit("green")
+            self.timer.reset_timer()
+            self.state = 2
+        return False
 
     def key_press(self, keyval):
         # if timer is running stop it
@@ -65,17 +75,12 @@ class TimerController(GObject.Object):
         # if space is press
         elif keyval == self.timer_key:
             if self.hold:
-                if self.state == 1:
-                    # green
-                    if time() - self.key_pressed_time >= delay:
-                        self.emit("green")
-                        self.timer.reset_timer()
-                        self.state = 2
                 # red
-                elif self.state == 0:
+                if self.state == 0:
                     self.state = 1
                     self.emit("red")
                     self.key_pressed_time = time()
+                    self.held_id = GLib.timeout_add(delay, self.hold_timeout)
 
             # if there is no hold directly change state to green
             else:
@@ -92,6 +97,9 @@ class TimerController(GObject.Object):
         # print("key released...")
         if keyval == self.timer_key:
             if self.state == 1:
+                if self.held_id:
+                    GLib.source_remove(self.held_id)
+                    self.held_id = None
                 self.emit("idle")
                 self.state = 0
             if self.state == 2:
