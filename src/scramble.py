@@ -20,6 +20,7 @@ class Scramble(Gtk.Label):
     __gtype_name__ = 'Scramble'
 
     def __init__(self, **kargs):
+        super().__init__(**kargs)
         self.dim = "3x3x3"
         self.scale_factor = 1
         self.update_scramble()
