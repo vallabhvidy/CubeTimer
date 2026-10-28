@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cube-timer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-28 08:10+0530\n"
+"POT-Creation-Date: 2026-10-28 09:18+0530\n"
 "PO-Revision-Date: 2025-07-16 18:25+0530\n"
 "Last-Translator: Francehelder Santos\n"
 "Language-Team: Portuguese\n"
@@ -165,8 +165,8 @@ msgstr "Sair"
 #. insert a default session called 'Session 1'
 #. and set it as the last session
 #. if no sessions are found
-#: src/score.py:114 src/score.py:116 src/scoresmodel.py:88
-#: src/scoresmodel.py:133
+#: src/score.py:114 src/score.py:116 src/scoresmodel.py:87
+#: src/scoresmodel.py:132
 msgid "Session 1"
 msgstr "Sessão 1"
 
@@ -360,6 +360,10 @@ msgstr ""
 
 #: src/gtk/preferences.ui:35
 msgid "Best and worst solves are not considered"
+msgstr ""
+
+#: src/gtk/preferences.ui:42
+msgid "Interface"
 msgstr ""
 
 #: src/gtk/preferences.ui:45

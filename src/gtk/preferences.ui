@@ -39,7 +39,7 @@
         </child>
         <child>
           <object class="AdwPreferencesGroup">
-            <property name="title">Interface</property>
+            <property name="title" translatable="yes">Interface</property>
             <child>
               <object class="AdwSwitchRow" id="zen_mode">
                 <property name="title" translatable="yes">Zen Mode</property>

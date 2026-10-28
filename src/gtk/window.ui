@@ -37,7 +37,7 @@ timer-small</setter>
         <property name="show-sidebar" bind-source="show_sidebar_button" bind-property="active" bind-flags="sync-create"/>
         <property name="sidebar">
           <object class="AdwNavigationPage">
-            <property name="title" translatable="true">Cube Timer</property>
+            <property name="title" translatable="yes">Cube Timer</property>
             <property name="tag">sidebar</property>
             <property name="child">
               <object class="AdwToolbarView">
@@ -63,7 +63,7 @@ timer-small</setter>
         </property>
         <property name="content">
           <object class="AdwNavigationPage">
-            <property name="title" translatable="true">Content</property>
+            <property name="title" translatable="yes">Content</property>
             <property name="tag">content</property>
             <property name="child">
               <object class="AdwToolbarView">
