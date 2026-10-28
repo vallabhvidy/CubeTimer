@@ -27,8 +27,8 @@ def calc_time(time):
 
 def zero_time():
     if not show_mins:
-        return "0."+"0"*precision
-    return "0:00."+"0"*precision
+        return "0" +("." if precision != 0 else "")+"0"*precision
+    return "0:00"+("." if precision != 0 else "")+"0"*precision
 
 def time_string(time, updating=False):
     if time == -1:
@@ -42,16 +42,17 @@ def time_string(time, updating=False):
     milisec = ((time % 60000) % 1000) // 1
 
     ms = "{milisec:03d}".format(milisec=milisec)
+    suff = ""
     if not updating:
-        ms = ms[:precision]
+        suff = f".{ms[:precision]}" if precision != 0 else ""
     else:
-        ms = ms[0]
+        suff = f".{ms[0]}"
 
     time_str = ""
     if minutes > 0 or show_mins:
-        time_str = "{minutes}:{seconds:02d}.{ms}".format(minutes=minutes, seconds=seconds, ms=ms)
+        time_str = "{minutes}:{seconds:02d}{suff}".format(minutes=minutes, seconds=seconds, suff=suff)
     else:
-        time_str = "{seconds}.{ms}".format(seconds=seconds, ms=ms)
+        time_str = "{seconds}{suff}".format(seconds=seconds, suff=suff)
 
     return time_str
 
