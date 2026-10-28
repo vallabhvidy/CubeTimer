@@ -18,6 +18,7 @@ class CubeTimerWindow(Adw.ApplicationWindow):
     scores_column_view = Gtk.Template.Child()
     puzzle_dropdown = Gtk.Template.Child()
     breakpoint_step1 = Gtk.Template.Child()
+    breakpoint_step2 = Gtk.Template.Child()
     breakpoint_step3 = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
@@ -63,7 +64,7 @@ class CubeTimerWindow(Adw.ApplicationWindow):
         def scramble_change_scale(bp, scale):
             self.scramble.scale_factor = scale
             self.scramble.update_label()
-        for i in (self.breakpoint_step1, self.breakpoint_step3):
+        for i in (self.breakpoint_step1, self.breakpoint_step2, self.breakpoint_step3):
             i.connect("apply", scramble_change_scale, 0.75)
             i.connect("unapply", scramble_change_scale, 1)
 
