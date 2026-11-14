@@ -45,7 +45,7 @@ class CubeTimerApplication(Adw.Application):
         about.set_developers(developers)
         # Translators: Replace "translator-credits" with your names, one name per line
         about.set_translator_credits(_("translator-credits"))
-        about.set_copyright("© 2025 Vallabh Vidyasagar")
+        about.set_copyright("© 2026 Vallabh Vidyasagar")
         about.present(self.props.active_window)
 
     def toggle_fullscreen(self, widget, _):
