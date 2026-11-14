@@ -64,6 +64,13 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.2.3" date="2026-11-14">
+      <description translate="no">
+        <ul>
+          <li>Minor bug fixes.</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.2.2" date="2026-06-13">
       <description translate="no">
         <ul>
