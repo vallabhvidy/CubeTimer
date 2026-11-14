@@ -24,6 +24,12 @@
     background-color: #FAFAFB;
 }
 
+@media (prefers-color-scheme: dark) {
+    .grid {
+        background-color: #222226;
+    }
+}
+
 .scores-column-view {
     border-radius: 10px;
 }
